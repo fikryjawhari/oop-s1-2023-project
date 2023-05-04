@@ -9,7 +9,7 @@ bool Pawn::validMove(int x_pos, int y_pos) {
         if (y_pos == y_position + 1 && x_pos == x_position) { // normal move
             return true;
         } else if (y_pos == y_position + 1 && (x_pos == x_position + 1 || x_pos == x_position - 1)) { // special move only applicable if diagonal has piece, need to implement that check
-            // take piece function
+                                                                                                      // take piece function
             return true;
         }
     }
