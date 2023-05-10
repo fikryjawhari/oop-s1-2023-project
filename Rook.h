@@ -1,11 +1,11 @@
-#ifndef PAWN_H
-#define PAWN_H
+#ifndef ROOK_H
+#define ROOK_H
 
 #include "Piece.h"
 
-class WhitePawn : public Piece {
+class Rook : public Piece {
 public:
     bool validMove(int x_pos, int y_pos); // check if move is valid
 };
 
-#endif // PAWN_H
+#endif // ROOK_H
