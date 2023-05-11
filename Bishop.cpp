@@ -8,4 +8,4 @@ bool Bishop::validMove(int x_pos, int y_pos) // y increase = x increse/x decreas
         }
     }
     return false;
-}
+} // Archer was here
