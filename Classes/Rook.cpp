@@ -16,3 +16,11 @@ bool Rook::validMove(int x_pos, int y_pos) // y increase -> no x increase OR x i
         return false;
     }
 }
+Rook::Rook() {
+}
+
+Rook::Rook(int x_position, int y_position, string colour) {
+    this->x_position = x_position;
+    this->y_position = y_position;
+    this->colour = colour;
+}

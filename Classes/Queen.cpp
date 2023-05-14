@@ -25,3 +25,6 @@ Queen::Queen(int x_position, int y_position, string colour) {
     this->colour = colour;
     maxMoveDistance = 7;
 }
+
+Queen::Queen() {
+}

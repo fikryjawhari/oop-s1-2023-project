@@ -3,7 +3,7 @@
 
 #include "Piece.h"
 
-class WhitePawn : public Piece {
+class Pawn : public Piece {
 public:
     Pawn();
     Pawn(int x_position, int y_position, string colour);
