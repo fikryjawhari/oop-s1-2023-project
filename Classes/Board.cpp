@@ -10,3 +10,7 @@ Board::Board() {
         }
     }
 }
+
+Square *Board::getSquareArray() {
+    return squareArray;
+}

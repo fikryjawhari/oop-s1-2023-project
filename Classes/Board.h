@@ -15,6 +15,7 @@ public:
     a class that stores the board and nothing else, basically
     just a record of the pieces, whereas the game class can do
     all the heavy lifting */
+    Square *getSquareArray();
 };
 
 #endif // BOARD_H
