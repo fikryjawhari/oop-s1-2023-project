@@ -1,9 +1,12 @@
 #include "Board.h"
+#include "Piece.h"
 
 Board::Board() {
-    rowArray = new Row[8];
+    squareArray = new Square[8 * 8];
     for (int i = 0; i < 8; i++) {
-        rowArray[i].setRow(i + 1); // I think this is the right
-        // way to implement the 2D array, need to test
+        for (int j = 0; j < 8; j++) {
+            squareArray[i * 8 + j].setXPosition(j + 1);
+            squareArray[i * 8 + j].setYPosition(i + 1);
+        }
     }
 }

@@ -1,11 +1,11 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include "Row.h"
+#include "Square.h"
 
 class Board {
 private:
-    Row *rowArray;
+    Square *squareArray;
 
 public:
     Board();
