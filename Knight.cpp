@@ -1,10 +1,16 @@
 #include "Knight.h"
 
-bool Knight::validMove(int x_pos, int y_pos) {
-    if (x_pos > 0 && x_pos < 9 && y_pos > 0 && y_pos < 9) {
-        if ((y_pos - y_position == 2 || y_pos - y_position == -2) && (x_pos - x_position == 1 || x_pos - x_position == -1)) {
+Knight::Knight() {
+}
+
+Knight::Knight(int x, int y, char colour) : Piece(x, y, colour) {
+}
+
+bool Knight::validMove(int newX, int newY) {
+    if (newX > 0 && newX < 9 && newY > 0 && newY < 9) {
+        if ((newY - y == 2 || newY - y == -2) && (newX - x == 1 || newX - x == -1)) {
             return true;
-        } else if ((x_pos - x_position == 2 || x_pos - x_position == -2) && (y_pos - y_position == 1 || y_pos - y_position == -1)) {
+        } else if ((newX - x == 2 || newX - x == -2) && (newY - y == 1 || newY - y == -1)) {
             return true;
         }
     }
@@ -14,12 +20,3 @@ bool Knight::validMove(int x_pos, int y_pos) {
 /* y+2 AND (x+1 or x-1) OR y-2 AND (x+1 or x-1)
    x+2 AND (y+1 or y-1) OR x+2 AND (y+1 or y-1)
  */
-
-Knight::Knight(int x_position, int y_position, string colour) {
-    this->x_position = x_position;
-    this->y_position = y_position;
-    this->colour = colour;
-}
-
-Knight::Knight() {
-}

@@ -5,8 +5,8 @@ Square::Square() {
 
 Square::Square(Piece *newPiece) {
     currentPiece = newPiece;
-    xPosition = 0;
-    yPosition = 0;
+    x = 0;
+    y = 0;
 }
 
 Piece *Square::getPiece() {
@@ -14,21 +14,21 @@ Piece *Square::getPiece() {
 }
 
 int Square::getXPosition() {
-    return xPosition;
+    return x;
 }
 
 int Square::getYPosition() {
-    return yPosition;
+    return y;
 }
 
 void Square::setPiece(Piece *newPiece) {
     currentPiece = newPiece;
 }
 
-void Square::setXPosition(int xPosition) {
-    this->xPosition = xPosition;
+void Square::setXPosition(int x) {
+    this->x = x;
 }
 
-void Square::setYPosition(int yPosition) {
-    this->yPosition = yPosition;
+void Square::setYPosition(int y) {
+    this->y = y;
 }

@@ -1,8 +1,11 @@
 #include "King.h"
 
-King::King(int x_position, int y_position, string colour) : Queen(x_position, y_position, colour) {
+King::King() {
+}
+
+King::King(int x, int y, char colour) : Queen(x, y, colour) {
     maxMoveDistance = 1;
 }
 
-King::King() {
+bool King::validMove(int newX, int newY) {
 }

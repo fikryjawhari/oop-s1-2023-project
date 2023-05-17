@@ -6,8 +6,8 @@
 class Bishop : public Piece {
 public:
     Bishop();
-    Bishop(int x_position, int y_position, string colour);
-    bool validMove(int x_pos, int y_pos); // check if move is valid
+    Bishop(int x, int y, char colour);
+    bool validMove(int newX, int newY); // check if move is valid
 };
 
 #endif // BISHOP_H

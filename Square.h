@@ -5,8 +5,8 @@
 
 class Square {
 private:
-    int xPosition;
-    int yPosition;
+    int x;
+    int y;
     Piece *currentPiece;
 
 public:
@@ -18,8 +18,8 @@ public:
     int getYPosition();
 
     void setPiece(Piece *newPiece);
-    void setXPosition(int xPosition);
-    void setYPosition(int yPosition);
+    void setXPosition(int x);
+    void setYPosition(int y);
 };
 
 #endif // SQUARE_H

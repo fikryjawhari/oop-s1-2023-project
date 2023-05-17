@@ -1,18 +1,20 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include <string>
-
 using namespace std;
 
 class Piece {
 protected:
-    string colour;
-    int x_position;
-    int y_position;
+    char colour;
+    int x;
+    int y;
 
 public:
     virtual bool validMove() = 0;
+    Piece();
+    Piece(int x, int y, char colour);
+    int getX();
+    int getY();
 };
 
 #endif // PIECE_H

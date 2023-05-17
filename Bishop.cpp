@@ -1,20 +1,17 @@
 #include "Bishop.h"
 
-bool Bishop::validMove(int x_pos, int y_pos) // y increase = x increse/x decrease
+Bishop::Bishop() {
+}
+
+Bishop::Bishop(int x, int y, char colour) : Piece(x, y, colour) {
+}
+
+bool Bishop::validMove(int newX, int newY) // y increase = x increse/x decrease
 {
-    if (x_pos > 0 && x_pos < 9 && y_pos > 0 && y_pos < 9) {
-        if ((y_position - y_pos) == (x_position - x_pos) || (y_position - y_pos) == (x_pos - x_position)) { // if absolute x movement is same as y movement
+    if (newX > 0 && newX < 9 && newY > 0 && newY < 9) {
+        if ((y - newY) == (x - newX) || (y - newY) == (newX - x)) { // if absolute x movement is same as y movement
             return true;
         }
     }
     return false;
-}
-
-Bishop::Bishop() {
-}
-
-Bishop::Bishop(int x_position, int y_position, string colour) {
-    this->x_position = x_position;
-    this->y_position = y_position;
-    this->colour = colour;
 }

@@ -6,8 +6,8 @@
 class King : public Queen {
 public:
     King();
-    King(int x_position, int y_position, string colour);
-    bool validMove(int x_pos, int y_pos); // check if move is valid
+    King(int x, int y, char colour);
+    bool validMove(int newX, int newY); // check if move is valid
 };
 
 #endif // KING_H
