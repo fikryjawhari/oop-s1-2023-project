@@ -1,195 +1,184 @@
-// Chess game made by Fikry Aljawhari
-
 #include <SFML/Graphics.hpp>
-
-#define length 7
-#define BLACK_PAWN 1
-#define WHITE_PAWN -1
-#define BLACK_ROOK 2
-#define WHITE_ROOK -2
-#define BLACK_KNIGHT 3
-#define WHITE_KNIGHT -3
-#define BLACK_BISHOP 4
-#define WHITE_BISHOP -4
-#define BLACK_QUEEN 5
-#define WHITE_QUEEN -5
-#define BLACK_KING 6
-#define WHITE_KING -6
-
+#include <time.h>
 using namespace sf;
 
-struct position {
-    int x;
-    int y;
-};
+int size = 56;
+Vector2f offset(28, 28);
 
-position oldPosition;
-position whiteKing;
-position blackKing;
-position transformWHITE;
-position transformBLACK;
+Sprite f[32]; // figures
+std::string position = "";
 
-int size = 100;
-int isMoving;
-int board[8][8] = {
-    2, 3, 4, 5, 6, 4, 3, 2,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    -1, -1, -1, -1, -1, -1, -1, -1,
-    -2, -3, -4, -5, -6, -4, -3, -2};
+int board[8][8] =
+    {-1, -2, -3, -4, -5, -3, -2, -1,
+     -6, -6, -6, -6, -6, -6, -6, -6,
+     0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0,
+     6, 6, 6, 6, 6, 6, 6, 6,
+     1, 2, 3, 4, 5, 3, 2, 1};
 
-int rightWhiteRook;
-int leftWhiteRook;
-int whiteKingFirstMove;
+std::string toChessNote(Vector2f p) {
+    std::string s = "";
+    s += char(p.x / size + 97);
+    s += char(7 - p.y / size + 49);
+    return s;
+}
 
-int rightBlackRook;
-int leftBlackRook;
-int BlackKingFirstMove;
+Vector2f toCoord(char a, char b) {
+    int x = int(a) - 97;
+    int y = 7 - int(b) + 49;
+    return Vector2f(x * size, y * size);
+}
 
-int move; // 0 -> white is moving, 1 -> black is moving
+void move(std::string str) {
+    Vector2f oldPos = toCoord(str[0], str[1]);
+    Vector2f newPos = toCoord(str[2], str[3]);
 
-int checkWhite;
-int checkBlack;
+    for (int i = 0; i < 32; i++)
+        if (f[i].getPosition() == newPos)
+            f[i].setPosition(-100, -100);
 
-int transformationWhite;
-int transformationBlack;
+    for (int i = 0; i < 32; i++)
+        if (f[i].getPosition() == oldPos)
+            f[i].setPosition(newPos);
+
+    // castling       //if the king didn't move
+    if (str == "e1g1")
+        if (position.find("e1") == -1)
+            move("h1f1");
+    if (str == "e8g8")
+        if (position.find("e8") == -1)
+            move("h8f8");
+    if (str == "e1c1")
+        if (position.find("e1") == -1)
+            move("a1d1");
+    if (str == "e8c8")
+        if (position.find("e8") == -1)
+            move("a8d8");
+}
+
+void loadPosition() {
+    int k = 0;
+    for (int i = 0; i < 8; i++)
+        for (int j = 0; j < 8; j++) {
+            int n = board[i][j];
+            if (!n)
+                continue;
+            int x = abs(n) - 1;
+            int y = n > 0 ? 1 : 0;
+            f[k].setTextureRect(IntRect(size * x, size * y, size, size));
+            f[k].setPosition(size * j, size * i);
+            k++;
+        }
+
+    for (int i = 0; i < position.length(); i += 5)
+        move(position.substr(i, 4));
+}
 
 int main() {
-    RenderWindow window(VideoMode(800, 800), "Chess made by Fikry Aljawhari");
-    Texture t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15;
+    RenderWindow window(VideoMode(504, 504), "The Chess! (press SPACE)");
 
-    t1.loadFromFile("images/Board.png");
-    t2.loadFromFile("images/BlackPawn.png");
-    t3.loadFromFile("images/WhitePawn");
-    t4.loadFromFile("images/BlackRook");
-    t5.loadFromFile("images/WhiteRook");
-    t6.loadFromFile("images/BlackKnight");
-    t7.loadFromFile("images/WhiteKnight");
-    t8.loadFromFile("images/BlackBishop");
-    t9.loadFromFile("images/WhiteBishop");
-    t10.loadFromFile("images/BlackQueen");
-    t11.loadFromFile("images/WhiteQueen");
-    t12.loadFromFile("images/BlackKing");
-    t13.loadFromFile("images/WhiteKing");
-    t14.loadFromFile("images/TransformationBlack");
-    t15.loadFromFile("images/TransformationWhite");
+    Texture t1, t2;
+    t1.loadFromFile("images/figures.png");
+    t2.loadFromFile("images/board.png");
 
-    Sprite tabla(t1);
-    Sprite BlackPawn(t2);
-    Sprite WhitePawn(t3);
-    Sprite BlackRook(t4);
-    Sprite WhiteRook(t5);
-    Sprite BlackKnight(t6);
-    Sprite WhiteKnight(t7);
-    Sprite BlackBishop(t8);
-    Sprite WhiteBishop(t9);
-    Sprite BlackQueen(t10);
-    Sprite WhiteQueen(t11);
-    Sprite BlackKing(t12);
-    Sprite WhiteKing(t13);
-    Sprite TransformationBlack(t14);
-    Sprite TransformationWhite(t15);
+    for (int i = 0; i < 32; i++)
+        f[i].setTexture(t1);
+    Sprite sBoard(t2);
 
-    Sprite MoveImages;
+    loadPosition();
 
-    float dx = 0;
-    float dy = 0;
-    int noMovedPiece = 0;
+    bool isMove = false;
+    float dx = 0, dy = 0;
+    Vector2f oldPos, newPos;
+    std::string str;
+    int n = 0;
 
     while (window.isOpen()) {
-        Vector2i position = Mouse::getPosition(window);
-        int x = position.x / size;
-        int y = position.y / size;
+        Vector2i pos = Mouse::getPosition(window) - Vector2i(offset);
+
         Event e;
         while (window.pollEvent(e)) {
-            if (e.type == Event::Closed) {
+            if (e.type == Event::Closed)
                 window.close();
-            }
-            window.clear();
-            if (e.key.code == Mouse::Left) {
-                // Transformation
-                if (board[y][x] != 0) {
-                    dx = position.x - x * size;
-                    dy = position.y - y * size;
-                    if (board[y][x] == BLACK_PAWN && move == 1) {
-                        noMovedPiece = BLACK_PAWN;
-                        MoveImages = BlackPawn;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == WHITE_PAWN && move == 0) {
-                        noMovedPiece = WHITE_PAWN;
-                        MoveImages = WhitePawn;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == BLACK_ROOK && move == 0) {
-                        noMovedPiece = BLACK_ROOK;
-                        MoveImages = BlackRook;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == WHITE_ROOK && move == 0) {
-                        noMovedPiece = WHITE_ROOK;
-                        MoveImages = WhiteRook;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == BLACK_KNIGHT && move == 0) {
-                        noMovedPiece = BLACK_KNIGHT;
-                        MoveImages = BlackKnight;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == WHITE_KNIGHT && move == 0) {
-                        noMovedPiece = WHITE_KNIGHT;
-                        MoveImages = WhiteKnight;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == BLACK_BISHOP && move == 0) {
-                        noMovedPiece = BLACK_BISHOP;
-                        MoveImages = BlackBishop;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == WHITE_BISHOP && move == 0) {
-                        noMovedPiece = WHITE_BISHOP;
-                        MoveImages = WhiteBishop;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == BLACK_QUEEN && move == 0) {
-                        noMovedPiece = BLACK_QUEEN;
-                        MoveImages = BlackQueen;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == WHITE_QUEEN && move == 0) {
-                        noMovedPiece = WHITE_QUEEN;
-                        MoveImages = WhiteQueen;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == BLACK_KING && move == 0) {
-                        noMovedPiece = BLACK_KING;
-                        MoveImages = BlackKing;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == WHITE_KING && move == 0) {
-                        noMovedPiece = WHITE_KING;
-                        MoveImages = WhiteKing;
-                        board[y][x] = 0;
-                    }
-                    if (board[y][x] == 0) {
-                        isMoving = 1;
-                        oldPosition.x = x;
-                        oldPosition.y = y;
-                    }
+
+            ////move back//////
+            if (e.type == Event::KeyPressed)
+                if (e.key.code == Keyboard::BackSpace) {
+                    if (position.length() > 6)
+                        position.erase(position.length() - 6, 5);
+                    loadPosition();
                 }
-            }
+
+            /////drag and drop///////
+            if (e.type == Event::MouseButtonPressed)
+                if (e.key.code == Mouse::Left)
+                    for (int i = 0; i < 32; i++)
+                        if (f[i].getGlobalBounds().contains(pos.x, pos.y)) {
+                            isMove = true;
+                            n = i;
+                            dx = pos.x - f[i].getPosition().x;
+                            dy = pos.y - f[i].getPosition().y;
+                            oldPos = f[i].getPosition();
+                        }
+
+            if (e.type == Event::MouseButtonReleased)
+                if (e.key.code == Mouse::Left) {
+                    isMove = false;
+                    Vector2f p = f[n].getPosition() + Vector2f(size / 2, size / 2);
+                    newPos = Vector2f(size * int(p.x / size), size * int(p.y / size));
+                    str = toChessNote(oldPos) + toChessNote(newPos);
+                    move(str);
+                    if (oldPos != newPos)
+                        position += str + " ";
+                    f[n].setPosition(newPos);
+                }
         }
-        if (e.type == Event::MouseButtonReleased) {
-            if (e.key.code == Mouse::Left) {
-                int ok;
-                // pieces movement
+
+        // comp move
+        if (Keyboard::isKeyPressed(Keyboard::Space)) {
+            oldPos = toCoord(str[0], str[1]);
+            newPos = toCoord(str[2], str[3]);
+
+            for (int i = 0; i < 32; i++)
+                if (f[i].getPosition() == oldPos)
+                    n = i;
+
+            /////animation///////
+            for (int k = 0; k < 50; k++) {
+                Vector2f p = newPos - oldPos;
+                f[n].move(p.x / 50, p.y / 50);
+                window.draw(sBoard);
+                for (int i = 0; i < 32; i++)
+                    f[i].move(offset);
+                for (int i = 0; i < 32; i++)
+                    window.draw(f[i]);
+                window.draw(f[n]);
+                for (int i = 0; i < 32; i++)
+                    f[i].move(-offset);
+                window.display();
             }
+
+            move(str);
+            position += str + " ";
+            f[n].setPosition(newPos);
         }
+
+        if (isMove)
+            f[n].setPosition(pos.x - dx, pos.y - dy);
+
+        ////// draw  ///////
+        window.clear();
+        window.draw(sBoard);
+        for (int i = 0; i < 32; i++)
+            f[i].move(offset);
+        for (int i = 0; i < 32; i++)
+            window.draw(f[i]);
+        window.draw(f[n]);
+        for (int i = 0; i < 32; i++)
+            f[i].move(-offset);
+        window.display();
     }
     return 0;
 }
-
-// Ive just realised this shit is 2k lines, fuck that
