@@ -11,18 +11,6 @@ Board::Board() {
     }
 }
 
-Board::Board(char puzzle) : Board() {
-    if (puzzle = 'a') {
-        //
-    } else if (puzzle = 'b') {
-        //
-    } else if (puzzle = 'c') {
-        //
-    } else if (puzzle = 'd') {
-        // figure out how to store puzzles here
-    }
-}
-
 Square *Board::getSquareArray() {
     return squareArray;
 }

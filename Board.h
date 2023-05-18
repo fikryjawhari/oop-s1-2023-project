@@ -10,7 +10,6 @@ private:
 
 public:
     Board();
-    Board(char puzzle);
     Square *getSquareArray();
     // bool validMove(Move move);
 };

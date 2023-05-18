@@ -1,9 +1,6 @@
 #include "Queen.h"
 #include <cmath>
 
-Queen::Queen() {
-}
-
 Queen::Queen(int x, int y, char colour) : Piece(x, y, colour) {
     maxMoveDistance = 7;
 }

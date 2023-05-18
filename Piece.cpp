@@ -1,8 +1,5 @@
 #include "Piece.h"
 
-Piece::Piece() {
-}
-
 Piece::Piece(int x, int y, char colour) {
     this->x = x;
     this->y = y;

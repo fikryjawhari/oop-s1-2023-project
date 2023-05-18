@@ -1,8 +1,5 @@
 #include "Rook.h"
 
-Rook::Rook() {
-}
-
 Rook::Rook(int x, int y, char colour) : Piece(x, y, colour) {
 }
 

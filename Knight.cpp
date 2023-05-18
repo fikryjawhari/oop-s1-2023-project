@@ -1,8 +1,5 @@
 #include "Knight.h"
 
-Knight::Knight() {
-}
-
 Knight::Knight(int x, int y, char colour) : Piece(x, y, colour) {
 }
 

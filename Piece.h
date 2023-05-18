@@ -12,8 +12,7 @@ protected:
     int y;
 
 public:
-    virtual bool validMove() = 0;
-    Piece();
+    virtual bool validMove(int newX, int newY) = 0;
     Piece(int x, int y, char colour);
     int getX();
     int getY();

@@ -1,8 +1,5 @@
 #include "Bishop.h"
 
-Bishop::Bishop() {
-}
-
 Bishop::Bishop(int x, int y, char colour) : Piece(x, y, colour) {
 }
 

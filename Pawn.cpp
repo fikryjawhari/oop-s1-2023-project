@@ -1,8 +1,5 @@
 #include "Pawn.h"
 
-Pawn::Pawn() {
-}
-
 Pawn::Pawn(int x, int y, char colour) : Piece(x, y, colour) {
 }
 

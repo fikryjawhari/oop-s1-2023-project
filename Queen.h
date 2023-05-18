@@ -10,7 +10,6 @@ protected:
     int maxMoveDistance;
 
 public:
-    Queen();
     Queen(int x, int y, char colour);
     bool validMove(int newX, int newY); // check if move is valid
 };
