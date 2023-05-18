@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include "Square.h"
+#include <vector>
 
 class Board {
 private:
@@ -9,8 +10,9 @@ private:
 
 public:
     Board();
+    Board(char puzzle);
     Square *getSquareArray();
-    bool validMove(int x, int y, int newX, int newY);
+    // bool validMove(Move move);
 };
 
 #endif // BOARD_H

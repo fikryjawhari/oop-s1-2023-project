@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#include "Move.h"
+
 class Piece {
 protected:
     char colour;
