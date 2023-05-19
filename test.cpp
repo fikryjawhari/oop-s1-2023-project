@@ -27,11 +27,11 @@ int main() {
             {1, 7, 7, 7}, // left/right valid
             {1, 7, 1, 8}, // piece invalid
             {1, 7, 1, 6}, // up/down valid
-            {1, 7, 1, 2}, //
-            {1, 7, 2, 2},
-            {4, 2, 5, 3},
-            {4, 2, 5, 4},
-            {4, 2, 3, 3},
+            {1, 7, 1, 2}, // take valid
+            {1, 7, 2, 2}, // move invalid
+            {4, 2, 5, 3}, // invalid, cant take own piece
+            {4, 2, 5, 4}, // invalid move
+            {4, 2, 3, 3}, //
             {4, 2, 0, 6},
             {4, 2, 5, 1},
             {4, 2, 6, 0},
@@ -39,11 +39,11 @@ int main() {
             {4, 2, 2, 0},
 
         };
+    int n = moveList.size();
     cout << "Succesfully allocated moves\n";
-    for (int i = 0; i < moveList.size(); i++) {
-        if (b1.validMove(moveList[i]) == true) {
-        } else {
-            cout << "Moved unsuccessful\n";
+    for (int i = 0; i < n; i++) {
+        if (b1.validMove(moveList[i]) != true) {
+            cout << "moved unsuccessfully\n";
         }
     }
     return 0;

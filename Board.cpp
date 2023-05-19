@@ -15,7 +15,28 @@ Square *Board::getSquareArray() {
     return squareArray;
 }
 
+bool Board::takeValidation(Move move) {
+    Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
+    if (currentPiece != nullptr) {
+        if (squareArray[(7 - move.newY) * 8 + move.newX].getPiece() != nullptr) { // if last square is not empty
+            if (currentPiece->getColour() != squareArray[(7 - move.newY) * 8 + move.newX].getPiece()->getColour()) {
+                cout << ", took successfully\n";
+                return true;
+            } else {
+                cout << "and can't take own piece, "; // return false if same colour
+                return false;
+            }
+        }
+        cout << ", moved successfully\n";
+        return true;
+    } else {
+        cout << "Empty square ";
+        return false;
+    }
+}
+
 bool Board::validMove(Move move) {
+    Move originalMove(move.x, move.y, move.newX, move.newY);
     Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
     if (currentPiece != nullptr) {
         bool pieceValidMove = currentPiece->validMove(move.newX + 1, move.newY + 1);
@@ -29,7 +50,7 @@ bool Board::validMove(Move move) {
                     if (move.x != move.newX) { // trying to move diagonally
                         while (move.y != move.newY) {
                             if (squareArray[(7 - (move.y + 1)) * 8 + (move.x + (move.newX - move.x))].getPiece() != nullptr) { // if diagonal square we want to go to is not empty
-                                if (squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {                   // if piece diagonal is black, can take
+                                if (squareArray[(7 - move.newY) * 8 + move.newX].getPiece()->getColour() == 'b') {             // if piece diagonal is black, can take
                                     move.y++;                                                                                  // this should end loop, cause diagonal move means newY is only 1 bigger
                                 } else {
                                     cout << "Can't take own piece "; // if piece diagonal is white, obviously cant move
@@ -57,10 +78,10 @@ bool Board::validMove(Move move) {
                     if (move.x != move.newX) { // trying to move diagonally
                         while (move.y != move.newY) {
                             if (squareArray[(7 - (move.y - 1)) * 8 + (move.x + (move.newX - move.x))].getPiece() != nullptr) { // if diagonal square we want to go to is not empty
-                                if (squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {                   // if piece diagonal is black, can take
+                                if (squareArray[(7 - move.newY) * 8 + move.newX].getPiece()->getColour() == 'w') {             // if piece diagonal is black, can take
                                     move.y--;                                                                                  // this should end loop, cause diagonal move means newY is only 1 bigger
                                 } else {
-                                    cout << "Can't take own piece"; // if piece diagonal is white, obviously cant move
+                                    cout << "Can't take own piece "; // if piece diagonal is white, obviously cant move
                                     return false;
                                 }
                             } else // if diagonal square is empty, obviously cant make that move (not implementing en passant)
@@ -90,6 +111,8 @@ bool Board::validMove(Move move) {
                         if (move.newY > move.y) { // moving up
                             if (squareArray[(7 - (move.y + 1)) * 8 + (move.x)].getPiece() == nullptr) {
                                 move.y++;
+                            } else if (squareArray[(7 - (move.y + 1)) * 8 + (move.x)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -97,6 +120,8 @@ bool Board::validMove(Move move) {
                         } else if (move.newY < move.y) { // moving down
                             if (squareArray[(7 - (move.y - 1)) * 8 + (move.x)].getPiece() == nullptr) {
                                 move.y--;
+                            } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -109,6 +134,8 @@ bool Board::validMove(Move move) {
                         if (move.newX > move.x) { // moving right
                             if (squareArray[(7 - (move.y)) * 8 + (move.x + 1)].getPiece() == nullptr) {
                                 move.x++;
+                            } else if (squareArray[(7 - (move.y)) * 8 + (move.x + 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -116,6 +143,8 @@ bool Board::validMove(Move move) {
                         } else if (move.newX < move.x) { // moving left
                             if (squareArray[(7 - (move.y)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                                 move.x--;
+                            } else if (squareArray[(7 - (move.y)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -124,24 +153,7 @@ bool Board::validMove(Move move) {
                     }
                     cout << "Valid Left/Right ";
                 }
-                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
-                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
-                        cout << "White Piece ";
-                        cout << "Take successful\n";
-                        return true;
-                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
-                        cout << "Black Piece ";
-                        cout << "Take successful\n";
-                        return true; // return true if opposite colour
-                    } else {
-                        cout << "Can't take own piece\n"; // return false if same colour
-                        return false;
-                    }
-                } else { // if last square is empty, no need to check colour
-                    cout << "Moved successful\n";
-                    return true;
-                }
-
+                return takeValidation(originalMove);
                 break;
             case 'B':
                 cout << "Bishop ";
@@ -151,6 +163,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                             move.y--;
                             move.x--;
+                        } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -162,6 +176,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y - 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
                             move.y--;
                             move.x++;
+                        } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x + 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -173,6 +189,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y + 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                             move.y++;
                             move.x--;
+                        } else if (squareArray[(7 - (move.y + 1)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -184,6 +202,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y + 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
                             move.y++;
                             move.x++;
+                        } else if (squareArray[(7 - (move.y + 1)) * 8 + (move.x + 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -191,57 +211,15 @@ bool Board::validMove(Move move) {
                     }
                     cout << "Up + Right ";
                 }
-                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
-                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
-                        cout << "Take successful\n";
-                        return true;
-                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
-                        cout << "Take successful\n";
-                        return true; // return true if opposite colour
-                    } else {         // return false if same colour
-                        cout << "Can't take own piece\n";
-                        return false;
-                    }
-                } else { // if last square is empty, no need to check colour
-                    cout << "Moved successful\n";
-                    return true;
-                }
+                return takeValidation(originalMove);
                 break;
             case 'N':
                 cout << "Knight ";
-                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
-                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
-                        cout << "Take successful\n";
-                        return true;
-                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
-                        cout << "Take successful\n";
-                        return true; // return true if opposite colour
-                    } else {         // return false if same colour
-                        cout << "Can't take own piece\n";
-                        return false;
-                    }
-                } else { // if last square is empty, no need to check colour
-                    cout << "Moved successful\n";
-                    return true;
-                }
+                return takeValidation(originalMove);
                 break;
             case 'K':
                 cout << "King ";
-                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
-                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
-                        cout << "Take successful\n";
-                        return true;
-                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
-                        cout << "Take successful\n";
-                        return true; // return true if opposite colour
-                    } else {         // return false if same colour
-                        cout << "Can't take own piece\n";
-                        return false;
-                    }
-                } else { // if last square is empty, no need to check colour
-                    cout << "Moved successful\n";
-                    return true;
-                }
+                return takeValidation(originalMove);
                 break;
             case 'Q':
                 cout << "Queen ";
@@ -250,6 +228,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                             move.y--;
                             move.x--;
+                        } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -261,6 +241,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y - 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
                             move.y--;
                             move.x++;
+                        } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x + 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -272,6 +254,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y + 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                             move.y++;
                             move.x--;
+                        } else if (squareArray[(7 - (move.y + 1)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -283,6 +267,8 @@ bool Board::validMove(Move move) {
                         if (squareArray[(7 - (move.y + 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
                             move.y++;
                             move.x++;
+                        } else if (squareArray[(7 - (move.y + 1)) * 8 + (move.x + 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            return (takeValidation(originalMove));
                         } else {
                             cout << "Path Blocked ";
                             return false;
@@ -294,6 +280,8 @@ bool Board::validMove(Move move) {
                         if (move.newY > move.y) { // moving up
                             if (squareArray[(7 - (move.y + 1)) * 8 + (move.x)].getPiece() == nullptr) {
                                 move.y++;
+                            } else if (squareArray[(7 - (move.y + 1)) * 8 + (move.x)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -301,6 +289,8 @@ bool Board::validMove(Move move) {
                         } else if (move.newY < move.y) { // moving down
                             if (squareArray[(7 - (move.y - 1)) * 8 + (move.x)].getPiece() == nullptr) {
                                 move.y--;
+                            } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -313,6 +303,8 @@ bool Board::validMove(Move move) {
                         if (move.newX > move.x) { // moving right
                             if (squareArray[(7 - (move.y)) * 8 + (move.x + 1)].getPiece() == nullptr) {
                                 move.x++;
+                            } else if (squareArray[(7 - (move.y)) * 8 + (move.x + 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -320,6 +312,8 @@ bool Board::validMove(Move move) {
                         } else if (move.newX < move.x) { // moving left
                             if (squareArray[(7 - (move.y)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                                 move.x--;
+                            } else if (squareArray[(7 - (move.y)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                                return (takeValidation(originalMove));
                             } else {
                                 cout << "Path Blocked ";
                                 return false; // square is occupied
@@ -328,21 +322,7 @@ bool Board::validMove(Move move) {
                     }
                     cout << "Valid Left/Right ";
                 }
-                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
-                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
-                        cout << "Take successful\n";
-                        return true;
-                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
-                        cout << "Take successful\n";
-                        return true; // return true if opposite colour
-                    } else {         // return false if same colour
-                        cout << "Can't take own piece\n";
-                        return false;
-                    }
-                } else { // if last square is empty, no need to check colour
-                    cout << "Moved successful\n";
-                    return true;
-                }
+                return takeValidation(originalMove);
                 break;
             }
         } else {
