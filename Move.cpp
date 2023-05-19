@@ -1,8 +1,8 @@
 #include "Move.h"
 
-Move::Move(int oldX, int oldY, int x, int y) {
-    this->oldX = oldX;
-    this->oldY = oldY;
+Move::Move(int x, int y, int newX, int newY) {
     this->x = x;
     this->y = y;
+    this->newX = newX;
+    this->newY = newY;
 }

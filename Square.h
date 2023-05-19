@@ -27,8 +27,6 @@ public:
     void setPiece(int piece);
     void setXPosition(int x);
     void setYPosition(int y);
-
-    ~Square();
 };
 
 #endif // SQUARE_H

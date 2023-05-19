@@ -5,16 +5,19 @@
 using namespace std;
 
 int main() {
-    Board b1;
     Puzzle pa;
 
-    b1 = pa.readPuzzle('a');
+    Board b1 = pa.readPuzzle("b");
 
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            cout << b1.getSquareArray()[i * 8 + j].getXPosition() << ", ";
-            cout << b1.getSquareArray()[i * 8 + j].getYPosition() << ", ";
-            cout << b1.getSquareArray()->getPiece() << endl;
+    for (int i = 0; i < 64; i++) {
+        if (b1.getSquareArray()[i].getPiece() != nullptr) {
+            cout << b1.getSquareArray()[i].getXPosition() << ", ";
+            cout << b1.getSquareArray()[i].getYPosition() << ", ";
+            cout << b1.getSquareArray()[i].getPiece()->getPieceType();
+            cout << endl;
+        } else {
+            cout << b1.getSquareArray()[i].getXPosition() << ", ";
+            cout << b1.getSquareArray()[i].getYPosition() << endl;
         }
     }
 }

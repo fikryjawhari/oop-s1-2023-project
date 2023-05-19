@@ -1,6 +1,7 @@
 #include "Pawn.h"
 
 Pawn::Pawn(int x, int y, char colour) : Piece(x, y, colour) {
+    pieceType = 'P';
 }
 
 bool Pawn::validMove(int newX, int newY) {

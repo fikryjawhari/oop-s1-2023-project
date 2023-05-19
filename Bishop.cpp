@@ -1,6 +1,7 @@
 #include "Bishop.h"
 
 Bishop::Bishop(int x, int y, char colour) : Piece(x, y, colour) {
+    pieceType = 'B';
 }
 
 bool Bishop::validMove(int newX, int newY) // y increase = x increse/x decrease

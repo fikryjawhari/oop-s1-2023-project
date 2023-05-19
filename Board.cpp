@@ -15,6 +15,10 @@ Square *Board::getSquareArray() {
     return squareArray;
 }
 
+Board::~Board() {
+    delete[] squareArray;
+}
+
 // bool Board::validMove(Move move) {
 //     squareArray[move.oldX * 8 + move.oldY].getPiece();
 // }

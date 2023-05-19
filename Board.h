@@ -12,6 +12,7 @@ public:
     Board();
     Square *getSquareArray();
     // bool validMove(Move move);
+    ~Board();
 };
 
 #endif // BOARD_H

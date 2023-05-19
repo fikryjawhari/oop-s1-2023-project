@@ -2,6 +2,7 @@
 #include <cmath>
 
 Queen::Queen(int x, int y, char colour) : Piece(x, y, colour) {
+    pieceType = 'Q';
     maxMoveDistance = 7;
 }
 
@@ -11,7 +12,7 @@ bool Queen::validMove(int newX, int newY) {             // copies valid move che
             if (abs(newY - y) <= maxMoveDistance) {
                 return true;
             }
-        } else if (newY - y == 0 & newX - x != 0) {
+        } else if ((newY - y == 0) && (newX - x != 0)) {
             if (abs(newY - y) <= maxMoveDistance) {
                 return true;
             }

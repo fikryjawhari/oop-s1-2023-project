@@ -8,6 +8,7 @@ using namespace std;
 class Piece {
 protected:
     char colour;
+    char pieceType;
     int x;
     int y;
 
@@ -16,6 +17,7 @@ public:
     Piece(int x, int y, char colour);
     int getX();
     int getY();
+    char getPieceType();
 };
 
 #endif // PIECE_H

@@ -12,24 +12,32 @@
 #include "Square.h"
 #include "Window.h"
 #include <fstream>
+#include <iostream>
 #include <string>
 
 using namespace std;
 
 class Puzzle {
 public:
-    string currentPieceString;
-    int currentPiece;
+    string currentPieceString = "";
+    int currentPiece = 0;
     int currentSquare = 0;
-    Board readPuzzle(char fileName) {
+    Board readPuzzle(string fileName) {
         Board initialBoard;
-        ifstream currentPuzzle("a.txt");
-        while (getline(currentPuzzle, currentPieceString)) {
-            currentPiece = stoi(currentPieceString);
-            initialBoard.getSquareArray()[currentSquare].setPiece(currentPiece);
+        Square *initialBoardArray = initialBoard.getSquareArray();
+        ifstream currentPuzzle(fileName + ".txt");
+        if (currentPuzzle.is_open() == false) {
+            cout << "No such puzzle file exists, displaying empty board.\n";
+            return initialBoard;
+        } else {
+            while (getline(currentPuzzle, currentPieceString)) {
+                currentPiece = stoi(currentPieceString);
+                initialBoardArray[currentSquare].setPiece(currentPiece);
+                currentSquare++;
+            }
+            return initialBoard;
         }
-        return initialBoard;
-    };
+    }
 };
 
 #endif // PUZZLE_H

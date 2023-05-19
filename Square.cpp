@@ -44,7 +44,6 @@ Square::Square(int piece) {
         this->currentPiece = new Queen{x, y, 'b'};
         break;
     default:
-        this->currentPiece = nullptr;
         break;
     }
 }
@@ -100,7 +99,6 @@ void Square::setPiece(int newPiece) {
         this->currentPiece = new Queen{x, y, 'b'};
         break;
     default:
-        this->currentPiece = nullptr;
         break;
     }
 }
@@ -111,8 +109,4 @@ void Square::setXPosition(int x) {
 
 void Square::setYPosition(int y) {
     this->y = y;
-}
-
-Square::~Square() {
-    delete currentPiece;
 }

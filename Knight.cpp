@@ -1,6 +1,7 @@
 #include "Knight.h"
 
 Knight::Knight(int x, int y, char colour) : Piece(x, y, colour) {
+    pieceType = 'N';
 }
 
 bool Knight::validMove(int newX, int newY) {
