@@ -103,19 +103,178 @@ bool Board::validMove(Move move) {
                         }
                     }
                 }
-                return true;
+                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
+                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
+                        return true;
+                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
+                        return true; // return true if opposite colour
+                    } else {         // return false if same colour
+                        return false;
+                    }
+                } else { // if last square is empty, no need to check colour
+                    return true;
+                }
+
                 break;
             case 'B':
                 // moves equally up and down, just check that the path is clear
+                if (move.y > move.newY && move.x > move.newX) { // down and left
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y - 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
+                            move.y--;
+                            move.x--;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.y > move.newY && move.x < move.newX) { // down and right
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y - 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
+                            move.y--;
+                            move.x++;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.y < move.newY && move.x > move.newX) { // up and left
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y + 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
+                            move.y++;
+                            move.x--;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.y < move.newY && move.x < move.newX) { // up and right
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y + 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
+                            move.y++;
+                            move.x++;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
+                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
+                        return true;
+                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
+                        return true; // return true if opposite colour
+                    } else {         // return false if same colour
+                        return false;
+                    }
+                } else { // if last square is empty, no need to check colour
+                    return true;
+                }
                 break;
             case 'N':
-                // dont need to check path is clear, just need to make sure end square is not own colour
+                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
+                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
+                        return true;
+                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
+                        return true; // return true if opposite colour
+                    } else {         // return false if same colour
+                        return false;
+                    }
+                } else { // if last square is empty, no need to check colour
+                    return true;
+                }
                 break;
             case 'K':
-                // moves only 1 in any direction, just check no piece of same colour is on any of those squares
+                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
+                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
+                        return true;
+                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
+                        return true; // return true if opposite colour
+                    } else {         // return false if same colour
+                        return false;
+                    }
+                } else { // if last square is empty, no need to check colour
+                    return true;
+                }
                 break;
             case 'Q':
-                // moves any dir, check all paths are clear
+                // moves equally up and down, just check that the path is clear
+                if (move.y > move.newY && move.x > move.newX) { // down and left
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y - 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
+                            move.y--;
+                            move.x--;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.y > move.newY && move.x < move.newX) { // down and right
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y - 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
+                            move.y--;
+                            move.x++;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.y < move.newY && move.x > move.newX) { // up and left
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y + 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
+                            move.y++;
+                            move.x--;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.y < move.newY && move.x < move.newX) { // up and right
+                    while (move.y != move.newY) {
+                        if (squareArray[(8 - (move.y + 1)) * 8 + (move.x + 1)].getPiece() == nullptr) {
+                            move.y++;
+                            move.x++;
+                        } else {
+                            return false;
+                        }
+                    }
+                } else if (move.x == move.newX) { // moving up/down
+                    while (move.y != move.newY) { // while not at end location
+                        if (move.newY > move.y) { // moving up
+                            if (squareArray[(8 - (move.y + 1)) * 8 + (move.x)].getPiece() == nullptr) {
+                                move.y++;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        } else if (move.newY < move.y) { // moving down
+                            if (squareArray[(8 - (move.y - 1)) * 8 + (move.x)].getPiece() == nullptr) {
+                                move.y--;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        }
+                    }
+                } else if (move.y == move.newY) { // moving left/right
+                    while (move.x != move.newX) { // while not at end location
+                        if (move.newX > move.x) { // moving right
+                            if (squareArray[(8 - (move.y)) * 8 + (move.x + 1)].getPiece() == nullptr) {
+                                move.x++;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        } else if (move.newX < move.x) { // moving left
+                            if (squareArray[(8 - (move.y)) * 8 + (move.x - 1)].getPiece() == nullptr) {
+                                move.x--;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        }
+                    }
+                }
+                if (squareArray[move.newX * 8 + move.newY].getPiece() != nullptr) { // if last square is not empty
+                    if (currentPiece->getColour() == 'w' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'b') {
+                        return true;
+                    } else if (currentPiece->getColour() == 'b' && squareArray[move.newX * 8 + move.newY].getPiece()->getColour() == 'w') {
+                        return true; // return true if opposite colour
+                    } else {         // return false if same colour
+                        return false;
+                    }
+                } else { // if last square is empty, no need to check colour
+                    return true;
+                }
                 break;
             }
         } else {
