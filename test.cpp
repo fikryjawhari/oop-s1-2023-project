@@ -43,7 +43,9 @@ int main() {
     cout << "Succesfully allocated moves\n";
     for (int i = 0; i < n; i++) {
         if (b1.validMove(moveList[i]) != true) {
-            cout << "moved unsuccessfully\n";
+            cout << "Moved unsuccessfully\n";
+        } else {
+            cout << "Moved successfully\n";
         }
     }
     return 0;
