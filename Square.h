@@ -25,6 +25,7 @@ public:
     int getYPosition();
 
     void setPiece(int piece);
+    void setPiecePtr(Piece *piece);
     void setXPosition(int x);
     void setYPosition(int y);
 };

@@ -282,6 +282,12 @@ bool Board::validMove(Move move) {
     return false;
 }
 
+void Board::movePiece(Move move) {
+    Piece *movingPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
+    squareArray[(7 - move.y) * 8 + move.x].setPiecePtr(nullptr);
+    squareArray[(7 - move.newY) * 8 + move.newX].setPiecePtr(movingPiece);
+}
+
 Board::~Board() {
     delete[] squareArray;
 }

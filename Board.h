@@ -14,6 +14,7 @@ public:
     Square *getSquareArray();
     bool takeValidation(Move move);
     bool validMove(Move move);
+    void movePiece(Move move);
     ~Board();
 };
 

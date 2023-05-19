@@ -103,6 +103,10 @@ void Square::setPiece(int newPiece) {
     }
 }
 
+void Square::setPiecePtr(Piece *piece) {
+    currentPiece = piece;
+}
+
 void Square::setXPosition(int x) {
     this->x = x;
 }

@@ -10,17 +10,17 @@ int main() {
 
     Board b1 = pa.readPuzzle("b");
 
-    // for (int i = 0; i < 64; i++) {
-    //     if (b1.getSquareArray()[i].getPiece() != nullptr) {
-    //         cout << b1.getSquareArray()[i].getXPosition() << ", ";
-    //         cout << b1.getSquareArray()[i].getYPosition() << ", ";
-    //         cout << b1.getSquareArray()[i].getPiece()->getPieceType();
-    //         cout << endl;
-    //     } else {
-    //         cout << b1.getSquareArray()[i].getXPosition() << ", ";
-    //         cout << b1.getSquareArray()[i].getYPosition() << endl;
-    //     }
-    // }
+    for (int i = 0; i < 64; i++) {
+        if (b1.getSquareArray()[i].getPiece() != nullptr) {
+            cout << b1.getSquareArray()[i].getXPosition() << ", ";
+            cout << b1.getSquareArray()[i].getYPosition() << ", ";
+            cout << b1.getSquareArray()[i].getPiece()->getPieceType();
+            cout << endl;
+        } else {
+            cout << b1.getSquareArray()[i].getXPosition() << ", ";
+            cout << b1.getSquareArray()[i].getYPosition() << endl;
+        }
+    }
     vector<Move> moveList =
         {
             {1, 7, 0, 7}, // blocked invalid
@@ -45,7 +45,19 @@ int main() {
         if (b1.validMove(moveList[i]) != true) {
             cout << "Moved unsuccessfully\n";
         } else {
+            b1.movePiece(moveList[i]);
             cout << "Moved successfully\n";
+        }
+    }
+    for (int i = 0; i < 64; i++) {
+        if (b1.getSquareArray()[i].getPiece() != nullptr) {
+            cout << b1.getSquareArray()[i].getXPosition() << ", ";
+            cout << b1.getSquareArray()[i].getYPosition() << ", ";
+            cout << b1.getSquareArray()[i].getPiece()->getPieceType();
+            cout << endl;
+        } else {
+            cout << b1.getSquareArray()[i].getXPosition() << ", ";
+            cout << b1.getSquareArray()[i].getYPosition() << endl;
         }
     }
     return 0;
