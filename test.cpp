@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     Puzzle pa;
 
-    Board b1 = pa.readPuzzle("a");
+    Board b1 = pa.readPuzzle("b");
 
     // for (int i = 0; i < 64; i++) {
     //     if (b1.getSquareArray()[i].getPiece() != nullptr) {
@@ -21,23 +21,29 @@ int main() {
     //         cout << b1.getSquareArray()[i].getYPosition() << endl;
     //     }
     // }
-    int n = 9;
-    Move pawnMoveList[n] = {
-        {6, 1, 6, 2},
-        {6, 1, 6, 3},
-        {6, 6, 6, 5},
-        {6, 6, 6, 4},
-        {4, 3, 4, 4},
-        {5, 2, 5, 3},
-        {5, 2, 5, 4},
-        {5, 2, 4, 3},
-        {5, 2, 6, 3}};
+    vector<Move> moveList =
+        {
+            {1, 7, 0, 7}, // blocked invalid
+            {1, 7, 7, 7}, // left/right valid
+            {1, 7, 1, 8}, // piece invalid
+            {1, 7, 1, 6}, // up/down valid
+            {1, 7, 1, 2}, //
+            {1, 7, 2, 2},
+            {4, 2, 5, 3},
+            {4, 2, 5, 4},
+            {4, 2, 3, 3},
+            {4, 2, 0, 6},
+            {4, 2, 5, 1},
+            {4, 2, 6, 0},
+            {4, 2, 3, 1},
+            {4, 2, 2, 0},
+
+        };
     cout << "Succesfully allocated moves\n";
-    for (int i = 0; i < n; i++) {
-        if (b1.validMove(pawnMoveList[i]) == true) {
-            cout << "Board valid move\n";
+    for (int i = 0; i < moveList.size(); i++) {
+        if (b1.validMove(moveList[i]) == true) {
         } else {
-            cout << "Board invalid move\n";
+            cout << "Moved unsuccessful\n";
         }
     }
     return 0;

@@ -6,9 +6,7 @@ Pawn::Pawn(int x, int y, char colour) : Piece(x, y, colour) {
 }
 
 bool Pawn::validMove(int newX, int newY) {
-    cout << "Pawn\n";
     if (colour == 'w') {
-        cout << x << " " << y << " " << colour << endl;
         if (y == 2) {
             if (newX == x && (newY == y + 1 || newY == y + 2)) { // if white pawn hasnt yet moved, can move 1 or 2 squares
                 return true;
@@ -22,7 +20,6 @@ bool Pawn::validMove(int newX, int newY) {
             }
         }
     } else if (colour == 'b') {
-        cout << x << " " << y << " " << colour << endl;
         if (y == 7) {
             if (newX == x && (newY == y - 1 || newY == y - 2)) { // if black pawn hasnt yet moved, can move 1 or 2 squares
                 return true;
