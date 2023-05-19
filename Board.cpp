@@ -19,9 +19,6 @@ bool Board::validMove(Move move) {
     Piece *currentPiece = squareArray[move.x * 8 + move.y].getPiece();
     bool pieceValidMove = currentPiece->validMove(move.newX, move.newY);
     if (pieceValidMove == true) {
-        // This is a fucking huge function, need to implement
-        // 1) piece moving logic and 2) along the piece path, is it
-        // empty for each piece
         if (currentPiece != nullptr) { // if current piece is actually a piece
             char currentPieceType = currentPiece->getPieceType();
             switch (currentPieceType) {
@@ -71,14 +68,19 @@ bool Board::validMove(Move move) {
                 }
                 break;
             case 'R':
+                // either moves across or up/down, check path is clear in chosen direction
                 break;
             case 'B':
+                // moves equally up and down, just check that the path is clear
                 break;
             case 'N':
+                // dont need to check path is clear, just need to make sure end square is not own colour
                 break;
             case 'K':
+                // moves only 1 in any direction, just check no piece of same colour is on any of those squares
                 break;
             case 'Q':
+                // moves any dir, check all paths are clear
                 break;
             }
         } else {
