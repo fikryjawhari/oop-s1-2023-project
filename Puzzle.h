@@ -25,7 +25,7 @@ public:
     Board readPuzzle(string fileName) {
         Board initialBoard;
         Square *initialBoardArray = initialBoard.getSquareArray();
-        ifstream currentPuzzle(fileName + ".txt");
+        ifstream currentPuzzle("Puzzles/" + fileName + ".txt");
         if (currentPuzzle.is_open() == false) {
             cout << "No such puzzle file exists, displaying empty board.\n";
             return initialBoard;
