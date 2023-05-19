@@ -66,9 +66,44 @@ bool Board::validMove(Move move) {
                         }
                     }
                 }
+                return true;
                 break;
             case 'R':
                 // either moves across or up/down, check path is clear in chosen direction
+                if (move.x == move.newX) {        // moving up/down
+                    while (move.y != move.newY) { // while not at end location
+                        if (move.newY > move.y) { // moving up
+                            if (squareArray[(8 - (move.y + 1)) * 8 + (move.x)].getPiece() == nullptr) {
+                                move.y++;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        } else if (move.newY < move.y) { // moving down
+                            if (squareArray[(8 - (move.y - 1)) * 8 + (move.x)].getPiece() == nullptr) {
+                                move.y--;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        }
+                    }
+                } else if (move.y == move.newY) { // moving left/right
+                    while (move.x != move.newX) { // while not at end location
+                        if (move.newX > move.x) { // moving right
+                            if (squareArray[(8 - (move.y)) * 8 + (move.x + 1)].getPiece() == nullptr) {
+                                move.x++;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        } else if (move.newX < move.x) { // moving left
+                            if (squareArray[(8 - (move.y)) * 8 + (move.x - 1)].getPiece() == nullptr) {
+                                move.x--;
+                            } else {
+                                return false; // square is occupied
+                            }
+                        }
+                    }
+                }
+                return true;
                 break;
             case 'B':
                 // moves equally up and down, just check that the path is clear
