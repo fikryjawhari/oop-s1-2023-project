@@ -17,6 +17,7 @@ public:
     Piece(int x, int y, char colour);
     int getX();
     int getY();
+    char getColour();
     char getPieceType();
 };
 

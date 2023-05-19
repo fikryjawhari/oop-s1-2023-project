@@ -15,6 +15,10 @@ int Piece::getY() {
     return y;
 }
 
+char Piece::getColour() {
+    return colour;
+}
+
 char Piece::getPieceType() {
     return pieceType;
 }
