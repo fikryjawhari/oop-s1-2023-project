@@ -12,6 +12,7 @@ private:
 public:
     Board();
     Square *getSquareArray();
+    bool takeValidation(Move move);
     bool validMove(Move move);
     ~Board();
 };
