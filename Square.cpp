@@ -52,6 +52,10 @@ Piece *Square::getPiece() {
     return currentPiece;
 }
 
+char Square::getPieceName() {
+    return currentPiece->getPieceType();
+}
+
 int Square::getXPosition() {
     return x;
 }

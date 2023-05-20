@@ -21,6 +21,7 @@ public:
     Square(int piece);
 
     Piece *getPiece();
+    char getPieceName();
     int getXPosition();
     int getYPosition();
 
