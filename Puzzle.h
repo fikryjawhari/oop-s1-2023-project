@@ -23,11 +23,13 @@ private:
     int currentPiece;
     int currentSquare;
     vector<Move> correctMovelist;
+    vector<Move> boardMoves;
 
 public:
     Puzzle();
     Board readPuzzle(string fileName);
     vector<Move> getCorrectMovelist();
+    vector<Move> getBoardMoves();
 };
 
 #endif // PUZZLE_H

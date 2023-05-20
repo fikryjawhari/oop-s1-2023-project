@@ -188,19 +188,14 @@ bool Board::validMove(Move move) {
                 return takeValidation(originalMove);
                 break;
             case 'Q':
-                cout << "Queen, ";
                 if (move.y > move.newY && move.x > move.newX) { // down and left
-                    cout << "down+left, ";
                     while (move.y != move.newY) {
                         if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                             move.y--;
                             move.x--;
-                            cout << "next box empty\n";
                         } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
-                            cout << "next box has takeable piece\n";
                             return (takeValidation(originalMove));
                         } else {
-                            cout << "next box has own piece\n";
                             return false;
                         }
                     }
@@ -278,7 +273,6 @@ bool Board::validMove(Move move) {
                         }
                     }
                 }
-                cout << "Success";
                 return takeValidation(originalMove);
                 break;
             }
