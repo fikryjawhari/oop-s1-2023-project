@@ -2,18 +2,23 @@
 #define GAME_H
 
 #include "Board.h"
+#include "Puzzle.h"
+#include <string>
 
 class Game {
 private:
-    vector<Board> boardHistory;
     Board currentBoard;
     int turn; // 1 if white, -1 if black
+    vector<Move> correctMoveList;
+    vector<Board> boardHistory;
 
 public:
     Game();
-    Game(int turn, Board currentBoard);
+    Game(int turn, std::string fileName, Puzzle puzzle);
     bool isInCheck(Move move);
-    void playTurn(Move move);
+    int playTurn(Move move);
+    Board getCurrentBoard();
+    int getCorrectMovelistLength();
 };
 
 #endif // GAME_H

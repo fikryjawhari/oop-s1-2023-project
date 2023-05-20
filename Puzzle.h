@@ -22,10 +22,12 @@ private:
     string currentPieceString;
     int currentPiece;
     int currentSquare;
+    vector<Move> correctMovelist;
 
 public:
     Puzzle();
     Board readPuzzle(string fileName);
+    vector<Move> getCorrectMovelist();
 };
 
 #endif // PUZZLE_H

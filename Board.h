@@ -15,7 +15,10 @@ public:
     bool takeValidation(Move move);
     bool validMove(Move move);
     void movePiece(Move move);
-    ~Board();
+    void printBoard();
+    void copySquareArray(Square *squareArrayToCopy);
+    void setSquareArray(Square *squareArray);
+    // ~Board();
 };
 
 #endif // BOARD_H

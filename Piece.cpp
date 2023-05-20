@@ -22,3 +22,8 @@ char Piece::getColour() {
 char Piece::getPieceType() {
     return pieceType;
 }
+
+void Piece::setPosition(int x, int y) {
+    this->x = x;
+    this->y = y;
+}

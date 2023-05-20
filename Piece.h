@@ -19,6 +19,7 @@ public:
     int getY();
     char getColour();
     char getPieceType();
+    void setPosition(int x, int y);
 };
 
 #endif // PIECE_H

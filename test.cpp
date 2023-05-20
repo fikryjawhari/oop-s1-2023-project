@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     Puzzle pa;
 
-    Board b1 = pa.readPuzzle("b");
+    Board b1 = pa.readPuzzle("a");
 
     for (int i = 0; i < 64; i++) {
         if (b1.getSquareArray()[i].getPiece() != nullptr) {

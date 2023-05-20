@@ -1,6 +1,8 @@
 #include "Board.h"
 #include "Piece.h"
 
+using namespace std;
+
 Board::Board() {
     squareArray = new Square[8 * 8];
     for (int i = 0; i < 8; i++) {
@@ -32,7 +34,7 @@ bool Board::takeValidation(Move move) {
 }
 
 bool Board::validMove(Move move) {
-    Move originalMove(move.x, move.y, move.newX, move.newY);
+    Move originalMove = move;
     Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
     if (currentPiece != nullptr) {
         bool pieceValidMove = currentPiece->validMove(move.newX + 1, move.newY + 1);
@@ -186,14 +188,19 @@ bool Board::validMove(Move move) {
                 return takeValidation(originalMove);
                 break;
             case 'Q':
+                cout << "Queen, ";
                 if (move.y > move.newY && move.x > move.newX) { // down and left
+                    cout << "down+left, ";
                     while (move.y != move.newY) {
                         if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece() == nullptr) {
                             move.y--;
                             move.x--;
+                            cout << "next box empty\n";
                         } else if (squareArray[(7 - (move.y - 1)) * 8 + (move.x - 1)].getPiece()->getColour() != currentPiece->getColour()) {
+                            cout << "next box has takeable piece\n";
                             return (takeValidation(originalMove));
                         } else {
+                            cout << "next box has own piece\n";
                             return false;
                         }
                     }
@@ -271,6 +278,7 @@ bool Board::validMove(Move move) {
                         }
                     }
                 }
+                cout << "Success";
                 return takeValidation(originalMove);
                 break;
             }
@@ -288,10 +296,74 @@ bool Board::validMove(Move move) {
 
 void Board::movePiece(Move move) {
     Piece *movingPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
-    squareArray[(7 - move.y) * 8 + move.x].setPiecePtr(nullptr);
     squareArray[(7 - move.newY) * 8 + move.newX].setPiecePtr(movingPiece);
+    movingPiece->setPosition(move.newX + 1, move.newY + 1);
+    squareArray[(7 - move.y) * 8 + move.x].setPiecePtr(nullptr);
 }
 
-Board::~Board() {
-    delete[] squareArray;
+void Board::printBoard() {
+    for (int i = 0; i < 64; i++) {
+        if (squareArray[i].getPiece() != nullptr) {
+            cout << squareArray[i].getXPosition() << ",";
+            cout << squareArray[i].getYPosition() << ",";
+            cout << squareArray[i].getPiece()->getPieceType();
+            if ((i + 1) % 8 == 0) {
+                cout << endl;
+            } else {
+                cout << "; ";
+            }
+        } else {
+            cout << squareArray[i].getXPosition() << ",";
+            cout << squareArray[i].getYPosition();
+            if ((i + 1) % 8 == 0) {
+                cout << endl;
+            } else {
+                cout << "; ";
+            }
+        }
+    }
 }
+
+void Board::copySquareArray(Square *squareArrayToCopy) {
+    int pieceX, pieceY;
+    char pieceColour, pieceType;
+    for (int i = 0; i < 64; i++) {
+        squareArray[i] = squareArrayToCopy[i];
+        if (squareArrayToCopy[i].getPiece() != nullptr) {
+            pieceX = squareArrayToCopy[i].getPiece()->getX();
+            pieceY = squareArrayToCopy[i].getPiece()->getY();
+            pieceColour = squareArrayToCopy[i].getPiece()->getColour();
+            pieceType = squareArrayToCopy[i].getPiece()->getPieceType();
+            switch (pieceType) {
+            case 'P':
+                squareArray[i].setPiecePtr(new Pawn{pieceX, pieceY, pieceColour});
+                break;
+            case 'R':
+                squareArray[i].setPiecePtr(new Rook{pieceX, pieceY, pieceColour});
+                break;
+            case 'B':
+                squareArray[i].setPiecePtr(new Bishop{pieceX, pieceY, pieceColour});
+                break;
+            case 'N':
+                squareArray[i].setPiecePtr(new Knight{pieceX, pieceY, pieceColour});
+                break;
+            case 'K':
+                squareArray[i].setPiecePtr(new King{pieceX, pieceY, pieceColour});
+                break;
+            case 'Q':
+                squareArray[i].setPiecePtr(new Queen{pieceX, pieceY, pieceColour});
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+void Board::setSquareArray(Square *squareArray) {
+    this->squareArray = squareArray;
+}
+
+// Board::~Board() {
+//     delete[] squareArray;
+// }
