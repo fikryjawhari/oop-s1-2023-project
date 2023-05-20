@@ -9,6 +9,11 @@
 #include "Square.h"
 #include "Window.h"
 
+void function(int x)
+{
+    std::cout << x << "yay" << std::endl;
+};
+ 
 int main() {
     return 0;
 }
