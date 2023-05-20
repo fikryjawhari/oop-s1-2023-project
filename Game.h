@@ -10,7 +10,7 @@ private:
     Board currentBoard;
     int turn; // 1 if white, -1 if black
     vector<Move> correctMoveList;
-    vector<Board> boardHistory;
+    vector<Move> boardMoves;
 
 public:
     Game();
@@ -19,6 +19,7 @@ public:
     int playTurn(Move move);
     Board getCurrentBoard();
     int getCorrectMovelistLength();
+    vector<Move> getBoardMoves();
 };
 
 #endif // GAME_H

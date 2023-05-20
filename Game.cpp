@@ -12,7 +12,7 @@ Game::Game(int turn, std::string fileName, Puzzle puzzle) {
     this->turn = turn;
     currentBoard = puzzle.readPuzzle(fileName);
     correctMoveList = puzzle.getCorrectMovelist();
-    boardHistory.push_back(currentBoard);
+    boardMoves = puzzle.getBoardMoves();
 }
 
 bool Game::isInCheck(Move move) {
@@ -70,7 +70,6 @@ int Game::playTurn(Move move) {
             if (move.moveCompare(correctMoveList[0]) == true) {
                 currentBoard.movePiece(move);
                 correctMoveList.erase(correctMoveList.begin());
-                boardHistory.push_back(currentBoard);
                 return 1; // true/allowed move
             } else {
                 std::cout << "Incorrect move, please try again\n";
@@ -90,4 +89,8 @@ Board Game::getCurrentBoard() {
 int Game::getCorrectMovelistLength() {
     int n = correctMoveList.size();
     return n;
+}
+
+vector<Move> Game::getBoardMoves() {
+    return boardMoves;
 }

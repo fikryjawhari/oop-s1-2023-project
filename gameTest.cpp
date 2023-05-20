@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     Game g1(-1, "a", *(new Puzzle));
-
+    vector<Move> boardMoves = g1.getBoardMoves();
     while (g1.getCorrectMovelistLength() > 0) {
         g1.getCurrentBoard().printBoard(); // this just prints board, purely for testing
         char columnLetter = '0';
@@ -94,8 +94,10 @@ int main() {
         }
 
         std::cout << "That is the right move, good job!\n";
-        // only missing the switch board state,
-        // aka the opposite pieces making the move
+        if (boardMoves.size() > 0) {
+            g1.getCurrentBoard().movePiece(boardMoves[0]);
+            boardMoves.erase(boardMoves.begin());
+        }
     }
 
     cout << "Well done, you solved the puzzle!\n";

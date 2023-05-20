@@ -10,6 +10,7 @@ Board Puzzle::readPuzzle(string fileName) {
     switch (fileName[0]) {
     case 'a':
         correctMovelist = {{3, 7, 3, 3}, {4, 4, 5, 2}, {5, 5, 3, 3}};
+        boardMoves = {{3, 0, 3, 3}, {4, 1, 5, 2}};
         break;
     case 'b':
         break;
@@ -37,4 +38,8 @@ Board Puzzle::readPuzzle(string fileName) {
 
 vector<Move> Puzzle::getCorrectMovelist() {
     return correctMovelist;
+}
+
+vector<Move> Puzzle::getBoardMoves() {
+    return boardMoves;
 }
