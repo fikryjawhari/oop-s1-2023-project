@@ -18,26 +18,14 @@
 using namespace std;
 
 class Puzzle {
+private:
+    string currentPieceString;
+    int currentPiece;
+    int currentSquare;
+
 public:
-    string currentPieceString = "";
-    int currentPiece = 0;
-    int currentSquare = 0;
-    Board readPuzzle(string fileName) {
-        Board initialBoard;
-        Square *initialBoardArray = initialBoard.getSquareArray();
-        ifstream currentPuzzle("Puzzles/" + fileName + ".txt");
-        if (currentPuzzle.is_open() == false) {
-            cout << "No such puzzle file exists, displaying empty board.\n";
-            return initialBoard;
-        } else {
-            while (getline(currentPuzzle, currentPieceString)) {
-                currentPiece = stoi(currentPieceString);
-                initialBoardArray[currentSquare].setPiece(currentPiece);
-                currentSquare++;
-            }
-            return initialBoard;
-        }
-    }
+    Puzzle();
+    Board readPuzzle(string fileName);
 };
 
 #endif // PUZZLE_H

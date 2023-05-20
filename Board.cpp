@@ -282,6 +282,10 @@ bool Board::validMove(Move move) {
     return false;
 }
 
+// For board, need to add a check for making sure the king is not in check
+// can do this by 'imagining' the move, and then seeing if next turn
+// its possible to take the king, where we add that if around the whole thing
+
 void Board::movePiece(Move move) {
     Piece *movingPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
     squareArray[(7 - move.y) * 8 + move.x].setPiecePtr(nullptr);
