@@ -53,7 +53,44 @@ Piece *Square::getPiece() {
 }
 
 char Square::getPieceName() {
+    if (currentPiece == nullptr) {
+        return '0';
+    }
     return currentPiece->getPieceType();
+}
+
+int Square::getPieceNumber() {
+    int pieceNumber;
+    if (currentPiece != nullptr) {
+        switch (currentPiece->getPieceType()) {
+        case 'P':
+            pieceNumber = 0;
+            break;
+        case 'R':
+            pieceNumber = 1;
+            break;
+        case 'B':
+            pieceNumber = 2;
+            break;
+        case 'N':
+            pieceNumber = 3;
+            break;
+        case 'K':
+            pieceNumber = 4;
+            break;
+        case 'Q':
+            pieceNumber = 5;
+            break;
+        default:
+            break;
+        }
+        if (currentPiece->getColour() == 'b') {
+            pieceNumber += 6;
+        }
+    } else {
+        pieceNumber = 0;
+    }
+    return pieceNumber;
 }
 
 int Square::getXPosition() {

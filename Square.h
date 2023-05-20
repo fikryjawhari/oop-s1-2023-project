@@ -22,6 +22,7 @@ public:
 
     Piece *getPiece();
     char getPieceName();
+    int getPieceNumber();
     int getXPosition();
     int getYPosition();
 
