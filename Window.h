@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <Board.h>
+#include "Board.h"
 
 struct chessPiece
 {
