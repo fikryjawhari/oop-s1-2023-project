@@ -1,5 +1,9 @@
 main:
 	g++ main.cpp Bishop.cpp Board.cpp King.cpp Knight.cpp Pawn.cpp Queen.cpp Rook.cpp Square.cpp Piece.cpp Move.cpp Puzzle.cpp Game.cpp -o output -lsfml-graphics -lsfml-window -lsfml-system
+	clear
+	./output
+	clear
+run main:
 	./output
 	clear
 square:
