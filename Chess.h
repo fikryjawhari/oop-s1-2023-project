@@ -85,6 +85,14 @@ namespace Chess {
                             newRowNum};
 
             while (g1.playTurn(newMove) != 1) {
+                columnLetter = '0';
+                columnNum = 0;
+                rowNum = 0;
+
+                newColumnLetter = '0';
+                newColumnNum = 0;
+                newRowNum = 0;
+
                 input = false;
                 invalidInputCounter = 0;
 
@@ -144,7 +152,11 @@ namespace Chess {
                            newRowNum};
             }
 
-            std::cout << "That is the right move, good job!\n";
+            std::cout << "That's the right move, good job!\n";
+
+            input = false;
+            invalidInputCounter = 0;
+
             if (boardMoves.size() > 0) {
                 g1.getCurrentBoard().movePiece(boardMoves[0]);
                 boardMoves.erase(boardMoves.begin());
