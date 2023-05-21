@@ -15,6 +15,7 @@ Game::Game(char file, Puzzle puzzle) {
     turn = puzzle.getPlayerToMove();
     correctMoveList = puzzle.getCorrectMovelist();
     boardMoves = puzzle.getBoardMoves();
+    boardStates = puzzle.getBoardStates();
 }
 
 bool Game::isInCheck(Move move) {
@@ -90,4 +91,8 @@ int Game::getCorrectMovelistLength() {
 
 vector<Move> Game::getBoardMoves() {
     return boardMoves;
+}
+
+vector<string> Game::getBoardStates() {
+    return boardStates;
 }

@@ -3,7 +3,7 @@ main:
 	clear
 	./output
 	clear
-run main:
+runMain:
 	./output
 	clear
 square:
@@ -16,4 +16,3 @@ gameTest:
 windowTest:
 	g++ -Wall windowTest.cpp Bishop.cpp Board.cpp King.cpp Knight.cpp Pawn.cpp Queen.cpp Rook.cpp Square.cpp Piece.cpp Move.cpp Puzzle.cpp Game.cpp Window.cpp -o window -lsfml-graphics -lsfml-window -lsfml-system
 	./window
-	clear

@@ -23,6 +23,7 @@ private:
     int currentSquare;
     vector<Move> correctMovelist;
     vector<Move> boardMoves;
+    vector<string> boardStates;
     int playerToMove; // 1 if white, -1 if black
 
 public:
@@ -30,6 +31,7 @@ public:
     Board readPuzzle(string fileName);
     vector<Move> getCorrectMovelist();
     vector<Move> getBoardMoves();
+    vector<string> getBoardStates();
     int getPlayerToMove();
 };
 

@@ -17,13 +17,17 @@ namespace Chess {
 
         Game g1(puzzle[0], *(new Puzzle));
         vector<Move> boardMoves = g1.getBoardMoves();
+        vector<string> boardFileNames = g1.getBoardStates();
 
         bool input = false;
         bool puzzleSolved = false;
         int invalidInputCounter = 0;
+        int boardState = 0;
 
         while (g1.getCorrectMovelistLength() > 0) {
-            g1.getCurrentBoard().printBoard(); // this just prints board, purely for testing
+            g1.getCurrentBoard().showBoard(boardFileNames[boardState]);
+            boardState++;
+
             char columnLetter = '0';
             int columnNum = 0;
             int rowNum = 0;
@@ -57,6 +61,8 @@ namespace Chess {
                 }
                 input = true;
             }
+            g1.getCurrentBoard().showBoard(boardFileNames[boardState]);
+            boardState++;
             input = false;
             invalidInputCounter = 0;
             while (input == false && invalidInputCounter < 5) {
@@ -152,6 +158,8 @@ namespace Chess {
                            newRowNum};
             }
 
+            g1.getCurrentBoard().showBoard(boardFileNames[boardState]);
+            boardState++;
             std::cout << "That's the right move, good job!\n";
 
             input = false;

@@ -88,7 +88,7 @@ int Square::getPieceNumber() {
             pieceNumber += 6;
         }
     } else {
-        pieceNumber = 0;
+        pieceNumber = -1;
     }
     return pieceNumber;
 }

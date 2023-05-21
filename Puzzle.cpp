@@ -11,6 +11,15 @@ Board Puzzle::readPuzzle(string fileName) {
     case 'a':
         correctMovelist = {{3, 7, 3, 3}, {4, 4, 5, 2}, {5, 5, 3, 3}};
         boardMoves = {{3, 0, 3, 3}, {4, 1, 5, 2}};
+        boardStates = {{"images/a1.png"},
+                       {"images/a2.png"},
+                       {"images/a3.png"},
+                       {"images/a4.png"},
+                       {"images/a5.png"},
+                       {"images/a6.png"},
+                       {"images/a7.png"},
+                       {"images/a8.png"},
+                       {"images/a9.png"}};
         playerToMove = -1;
         break;
     case 'b':
@@ -47,6 +56,10 @@ vector<Move> Puzzle::getCorrectMovelist() {
 
 vector<Move> Puzzle::getBoardMoves() {
     return boardMoves;
+}
+
+vector<string> Puzzle::getBoardStates() {
+    return boardStates;
 }
 
 int Puzzle::getPlayerToMove() {

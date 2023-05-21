@@ -16,6 +16,7 @@ public:
     bool validMove(Move move);
     void movePiece(Move move);
     void printBoard();
+    void showBoard(string imageFileName);
     void copySquareArray(Square *squareArrayToCopy);
     void setSquareArray(Square *squareArray);
     // ~Board();

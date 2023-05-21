@@ -1,5 +1,5 @@
 #include "Board.h"
-#include "Piece.h"
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -315,6 +315,29 @@ void Board::printBoard() {
                 cout << "; ";
             }
         }
+    }
+}
+
+void Board::showBoard(string imageFileName) {
+    sf::RenderWindow window(sf::VideoMode(700, 700), "Puzzle");
+    sf::Texture texture;
+    sf::Sprite sprite;
+    if (!texture.loadFromFile(imageFileName)) {
+        std::cout << "Could not load image" << std::endl;
+        return;
+    } else {
+        sprite.setTexture(texture);
+    }
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+        window.clear();
+        window.draw(sprite);
+        window.display();
     }
 }
 
