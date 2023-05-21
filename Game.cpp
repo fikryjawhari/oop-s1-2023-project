@@ -8,9 +8,11 @@ Game::Game() {
     turn = 0;
 }
 
-Game::Game(int turn, std::string fileName, Puzzle puzzle) {
-    this->turn = turn;
+Game::Game(char file, Puzzle puzzle) {
+    Board emptyBoard;
+    string fileName(1, file);
     currentBoard = puzzle.readPuzzle(fileName);
+    turn = puzzle.getPlayerToMove();
     correctMoveList = puzzle.getCorrectMovelist();
     boardMoves = puzzle.getBoardMoves();
 }
@@ -45,13 +47,8 @@ bool Game::isInCheck(Move move) {
                 if (tempBoard.getSquareArray()[i].getPiece()->getPieceType() != 'K') {
                     int currentX = tempBoard.getSquareArray()[i].getPiece()->getX();
                     int currentY = tempBoard.getSquareArray()[i].getPiece()->getY();
-                    // cout << currentX << ", " << currentY << ", next piece\n";
                     Move tempMove(currentX - 1, currentY - 1, kingX - 1, kingY - 1);
-                    // cout << "Made move, " << i << endl;
                     if (tempBoard.validMove(tempMove) == true) {
-                        cout << tempBoard.getSquareArray()[i].getPiece()->getColour();
-                        cout << tempBoard.getSquareArray()[i].getPieceName();
-                        cout << endl;
                         return true;
                     }
                 }

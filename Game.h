@@ -14,7 +14,7 @@ private:
 
 public:
     Game();
-    Game(int turn, std::string fileName, Puzzle puzzle);
+    Game(char file, Puzzle puzzle);
     bool isInCheck(Move move);
     int playTurn(Move move);
     Board getCurrentBoard();
