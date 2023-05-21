@@ -10,7 +10,6 @@
 #include "Queen.h"
 #include "Rook.h"
 #include "Square.h"
-#include "Window.h"
 #include <fstream>
 #include <iostream>
 #include <string>
