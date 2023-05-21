@@ -24,12 +24,14 @@ private:
     int currentSquare;
     vector<Move> correctMovelist;
     vector<Move> boardMoves;
+    int playerToMove; // 1 if white, -1 if black
 
 public:
     Puzzle();
     Board readPuzzle(string fileName);
     vector<Move> getCorrectMovelist();
     vector<Move> getBoardMoves();
+    int getPlayerToMove();
 };
 
 #endif // PUZZLE_H

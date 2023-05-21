@@ -11,14 +11,19 @@ Board Puzzle::readPuzzle(string fileName) {
     case 'a':
         correctMovelist = {{3, 7, 3, 3}, {4, 4, 5, 2}, {5, 5, 3, 3}};
         boardMoves = {{3, 0, 3, 3}, {4, 1, 5, 2}};
+        playerToMove = -1;
         break;
     case 'b':
         break;
     case 'c':
+        correctMovelist = {{4, 3, 5, 4}};
+        boardMoves = {};
+        playerToMove = 1;
         break;
     // keep adding puzzles and right moves here
     default:
-        std::cout << "Read puzzle incorrectly\n";
+        correctMovelist = {};
+        boardMoves = {};
         break;
     }
     Board initialBoard;
@@ -42,4 +47,8 @@ vector<Move> Puzzle::getCorrectMovelist() {
 
 vector<Move> Puzzle::getBoardMoves() {
     return boardMoves;
+}
+
+int Puzzle::getPlayerToMove() {
+    return playerToMove;
 }

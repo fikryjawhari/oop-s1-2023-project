@@ -1,13 +1,6 @@
-#include "Bishop.h"
-#include "Board.h"
-#include "King.h"
-#include "Knight.h"
-#include "Pawn.h"
-#include "Piece.h"
-#include "Queen.h"
-#include "Rook.h"
-#include "Square.h"
-#include "Window.h"
+#include "Chess.h"
+
+using namespace Chess;
 
 void function(int x)
 {
@@ -15,5 +8,9 @@ void function(int x)
 };
  
 int main() {
+    bool gameRunning = true;
+    while (gameRunning == true) {
+        gameRunning = run();
+    }
     return 0;
 }
