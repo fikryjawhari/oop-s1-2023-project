@@ -1,8 +1,9 @@
-#include "Window.h"
+#include "badWindow.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
-void Window::FitToHolder() { // WORKS
+void badWindow::FitToHolder() { // WORKS
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             Squares[i][j].setPosition(sf::Vector2f(Holder.left + (i * Holder.width / 8), Holder.top + (j * Holder.height / 8)));
@@ -11,15 +12,48 @@ void Window::FitToHolder() { // WORKS
     }
 }
 
-void Window::DrawSquares() { // WORKS
+void badWindow::DrawSquares() { // WORKS
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             win.draw(Squares[i][j]);
         }
     }
 }
-
-Window::Window(int width, int height, const char *name) {
+void badWindow::DrawPieces() { // DOESNT
+    for (int i = 0; i < 64; ++i) {
+        if (pieces[i].draw == 1) {
+            win.draw(pieces[i].Sprite);
+        }
+    }
+}
+void badWindow::MapPieces() {
+    for (int i = 0; i < 64; ++i) {
+        if (pieces[i].draw == 1) {
+            pieces[i].Sprite.setPosition(sf::Vector2f(Holder.left + (pieces[i].x * Holder.width / 8), Holder.top + (pieces[i].y * Holder.height / 8)));
+            pieces[i].Sprite.setScale(Holder.width / 1600.f, Holder.height / 1600.f);
+        }
+    }
+}
+void badWindow::MapPieces(Move curr) {
+    chessPiece *current;
+    for (int i = 0; i < 64; ++i) {
+        if (pieces[i].draw == 1) {
+            if (pieces[i].x == curr.x && pieces[i].y == curr.y) {
+                current = &pieces[i];
+            }
+            if (pieces[i].x == curr.newX && pieces[i].y == curr.newY) {
+                pieces[i].draw = 0;
+            }
+            pieces[i].Sprite.setPosition(sf::Vector2f(Holder.left + (pieces[i].x * Holder.width / 8), Holder.top + (pieces[i].y * Holder.height / 8)));
+            pieces[i].Sprite.setScale(Holder.width / 1600.f, Holder.height / 1600.f);
+        }
+    }
+    current->x = curr.newX;
+    current->y = curr.newY;
+    current->Sprite.setPosition(sf::Vector2f(Holder.left + (current->x * Holder.width / 8), Holder.top + (current->y * Holder.height / 8)));
+    current->Sprite.setScale(Holder.width / 1600.f, Holder.height / 1600.f);
+}
+badWindow::badWindow(int width, int height, const char *name, const char *imgPath[12]) {
     bool sColor = 1;
     sColors[0].r = 118;
     sColors[0].g = 150;
@@ -43,10 +77,29 @@ Window::Window(int width, int height, const char *name) {
     std::cout << "First for loop\n";
     FitToHolder();
     sf::IntRect blank;
+    for (int i = 0; i < 12; ++i) {
+        pieceTex[i].loadFromFile(imgPath[i], blank);
+    }
+    std::cout << "Second for loop\n";
+    int index = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            pieces[index].pieceID = cBoard.getSquareArray()[index].getPieceNumber();
+            pieces[index].x = i + 1;
+            pieces[index].y = j + 1;
+            if (pieces[index].pieceID != 0) {
+                pieces[index].Sprite.setTexture(pieceTex[pieces[index].pieceID], true);
+                pieces[index].draw = 1;
+            }
+            ++index;
+        }
+    }
+    std::cout << "Third for loop\n";
+    MapPieces();
     win.create(sf::VideoMode(width, height), name);
 }
 
-bool Window::update() {
+bool badWindow::Update() {
     sf::Event event;
     while (win.pollEvent(event)) {
         switch (event.type) {
@@ -65,6 +118,7 @@ bool Window::update() {
                 Holder.top = sY / 2 - Holder.height / 2;
                 Holder.left = 0;
             }
+            MapPieces();
             FitToHolder();
             break;
         case sf::Event::MouseButtonPressed:
@@ -88,9 +142,10 @@ bool Window::update() {
                         cSelect = 0;
                     } else {
                         Move m(selected[0], selected[1], projX, projY);
-                        // if (cBoard.validMove(m)) {
-                        //     cBoard.movePiece(m);
-                        // }
+                        if (cBoard.validMove(m)) {
+                            MapPieces(m);
+                            cBoard.movePiece(m);
+                        }
                         Squares[selected[0]][selected[1]].setFillColor(sColors[1 - ((selected[0] + selected[1]) % 2)]);
                         cSelect = 0;
                     }
@@ -110,6 +165,7 @@ bool Window::update() {
     }
     win.clear();
     DrawSquares();
+    DrawPieces();
     win.display();
     return true;
 }
