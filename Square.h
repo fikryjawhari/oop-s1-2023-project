@@ -1,6 +1,8 @@
+//Defining square
 #ifndef SQUARE_H
 #define SQUARE_H
 
+//Including pieces
 #include "Bishop.h"
 #include "King.h"
 #include "Knight.h"
@@ -10,6 +12,7 @@
 #include "Rook.h"
 #include "Square.h"
 
+//Declaring class and variables
 class Square {
 private:
     int x;
@@ -17,15 +20,16 @@ private:
     Piece *currentPiece;
 
 public:
+    //constructors
     Square();
     Square(int piece);
-
+    //Getters
     Piece *getPiece();
     char getPieceName();
     int getPieceNumber();
     int getXPosition();
     int getYPosition();
-
+    //Setters
     void setPiece(int piece);
     void setPiecePtr(Piece *piece);
     void setXPosition(int x);
