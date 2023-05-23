@@ -1,12 +1,12 @@
-//Function definitions
+// Function definitions
 #include "Knight.h"
 
-//Constructor
+// Constructor
 Knight::Knight(int x, int y, char colour) : Piece(x, y, colour) {
     pieceType = 'N';
 }
 
-//Knight's valid move
+// Knight's valid move
 bool Knight::validMove(int newX, int newY) {
     if (newX > 0 && newX < 9 && newY > 0 && newY < 9) {
         if ((newY - y == 2 || newY - y == -2) && (newX - x == 1 || newX - x == -1)) {

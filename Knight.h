@@ -1,11 +1,11 @@
-//Defining Knight
+// Defining Knight
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-//Inheriting from abstract piece
+// Inheriting from abstract piece
 #include "Piece.h"
 
-//Declaring class, constructor, and knight's valid move
+// Declaring class, constructor, and knight's valid move
 class Knight : public Piece {
 public:
     Knight(int x, int y, char colour);

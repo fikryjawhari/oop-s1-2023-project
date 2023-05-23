@@ -1,12 +1,10 @@
-//Defining abstract piece
+// Defining abstract piece
 #ifndef PIECE_H
 #define PIECE_H
 
-using namespace std;
-
 #include "Move.h"
 
-//Declaring class and functions
+// Declaring class and functions
 class Piece {
 protected:
     char colour;
@@ -15,10 +13,10 @@ protected:
     int y;
 
 public:
-    virtual bool validMove(int newX, int newY) = 0; //polymorphic function for inheritance
-    Piece(int x, int y, char colour); //constructor
-    //Getters and setters
-    int getX(); 
+    virtual bool validMove(int newX, int newY) = 0; // polymorphic function for inheritance
+    Piece(int x, int y, char colour);               // constructor
+    // Getters and setters
+    int getX();
     int getY();
     char getColour();
     char getPieceType();

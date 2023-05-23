@@ -1,5 +1,4 @@
 #include "Board.h"
-#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -293,52 +292,6 @@ void Board::movePiece(Move move) {
     squareArray[(7 - move.newY) * 8 + move.newX].setPiecePtr(movingPiece);
     movingPiece->setPosition(move.newX + 1, move.newY + 1);
     squareArray[(7 - move.y) * 8 + move.x].setPiecePtr(nullptr);
-}
-
-void Board::printBoard() {
-    for (int i = 0; i < 64; i++) {
-        if (squareArray[i].getPiece() != nullptr) {
-            cout << squareArray[i].getXPosition() << ",";
-            cout << squareArray[i].getYPosition() << ",";
-            cout << squareArray[i].getPiece()->getPieceType();
-            if ((i + 1) % 8 == 0) {
-                cout << endl;
-            } else {
-                cout << "; ";
-            }
-        } else {
-            cout << squareArray[i].getXPosition() << ",";
-            cout << squareArray[i].getYPosition();
-            if ((i + 1) % 8 == 0) {
-                cout << endl;
-            } else {
-                cout << "; ";
-            }
-        }
-    }
-}
-
-void Board::showBoard(string imageFileName) {
-    sf::RenderWindow window(sf::VideoMode(700, 700), "Puzzle");
-    sf::Texture texture;
-    sf::Sprite sprite;
-    if (!texture.loadFromFile(imageFileName)) {
-        std::cout << "Could not load image" << std::endl;
-        return;
-    } else {
-        sprite.setTexture(texture);
-    }
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-        window.clear();
-        window.draw(sprite);
-        window.display();
-    }
 }
 
 void Board::copySquareArray(Square *squareArrayToCopy) {

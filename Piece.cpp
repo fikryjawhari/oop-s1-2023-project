@@ -1,7 +1,7 @@
-//Functions definitions
+// Functions definitions
 #include "Piece.h"
 
-//Constructor
+// Constructor
 Piece::Piece(int x, int y, char colour) {
     this->x = x;
     this->y = y;
@@ -26,7 +26,7 @@ char Piece::getPieceType() {
     return pieceType;
 }
 
-//set function for position
+// set function for position
 void Piece::setPosition(int x, int y) {
     this->x = x;
     this->y = y;

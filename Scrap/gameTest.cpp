@@ -1,4 +1,4 @@
-#include "Chess.h"
+#include "/home/fikrya/oop-s1-2023-project/Chess.h"
 
 using namespace std;
 

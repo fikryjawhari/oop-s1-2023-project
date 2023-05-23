@@ -2,6 +2,11 @@
 #ifndef PUZZLE_H
 #define PUZZLE_H
 
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+
 #include "Bishop.h"
 #include "Board.h"
 #include "King.h"
@@ -11,9 +16,6 @@
 #include "Queen.h"
 #include "Rook.h"
 #include "Square.h"
-#include <fstream>
-#include <iostream>
-#include <string>
 
 using namespace std;
 

@@ -1,11 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Board.h"
-#include "Puzzle.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 #include <string>
+
+#include "Board.h"
+#include "Puzzle.h"
 
 class Game {
 private:

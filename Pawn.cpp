@@ -1,15 +1,14 @@
-//Function definitions
+// Function definitions
 #include "Pawn.h"
-#include <iostream>
 
-//Constructor
+// Constructor
 Pawn::Pawn(int x, int y, char colour) : Piece(x, y, colour) {
     pieceType = 'P';
 }
 
-//Pawn's valid move
+// Pawn's valid move
 bool Pawn::validMove(int newX, int newY) {
-    if (colour == 'w') { 
+    if (colour == 'w') {
         if (y == 2) {
             if (newX == x && (newY == y + 1 || newY == y + 2)) { // if white pawn hasnt yet moved, can move 1 or 2 squares
                 return true;
