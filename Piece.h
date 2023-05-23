@@ -13,7 +13,7 @@ protected:
     int y;
 
 public:
-    virtual bool validMove(int newX, int newY) = 0; // polymorphic function for inheritance
+    virtual bool validMove(int newX, int newY) = 0; // pure virtual function to make piece a pure abstract class, as no blank piece exists in chess
     Piece(int x, int y, char colour);               // constructor
     // Getters and setters
     int getX();

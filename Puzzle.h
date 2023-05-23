@@ -7,31 +7,23 @@
 #include <string>
 #include <vector>
 
-#include "Bishop.h"
 #include "Board.h"
-#include "King.h"
-#include "Knight.h"
-#include "Pawn.h"
-#include "Piece.h"
-#include "Queen.h"
-#include "Rook.h"
-#include "Square.h"
 
 using namespace std;
 
 class Puzzle {
 private:
     string currentPieceString;
-    int currentPiece;
-    int currentSquare;
-    vector<Move> correctMovelist;
-    vector<Move> boardMoves;
+    int currentPiece, currentSquare;
+    vector<Move> correctMovelist, boardMoves; // Board move stores moves that player doesn't control
     vector<string> boardStates;
     int playerToMove; // 1 if white, -1 if black
 
 public:
     Puzzle();
+    // Reads puzzle from file
     Board readPuzzle(string fileName);
+    // Getters
     vector<Move> getCorrectMovelist();
     vector<Move> getBoardMoves();
     vector<string> getBoardStates();

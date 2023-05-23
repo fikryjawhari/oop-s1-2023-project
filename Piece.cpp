@@ -9,7 +9,7 @@ Piece::Piece(int x, int y, char colour) {
     pieceType = 0;
 }
 
-// get functions (x position, y position, colour, and piece type)
+// Get functions (x position, y position, colour, and piece type)
 int Piece::getX() {
     return x;
 }
@@ -26,7 +26,7 @@ char Piece::getPieceType() {
     return pieceType;
 }
 
-// set function for position
+// Set function for position
 void Piece::setPosition(int x, int y) {
     this->x = x;
     this->y = y;

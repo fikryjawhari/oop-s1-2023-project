@@ -6,27 +6,47 @@
 
 namespace Chess {
     bool run() {
+
+        // Setting variables
         string puzzle;
-
-        cout << "Welcome to OOP Chess Puzzles, your one stop chess puzzle solving experience!\n";
-        cout << "Please enter the puzzle you want to work on, from a - d (a is easiest, or -1 to exit): ";
-
-        cin >> puzzle;
-        if (puzzle.compare("-1") == 0) {
-            return false;
-        }
-
-        Game g1(puzzle[0], *(new Puzzle));
-        vector<Move> boardMoves = g1.getBoardMoves();
-        vector<string> boardFileNames = g1.getBoardStates();
-
         bool input = false;
         bool puzzleSolved = false;
         int invalidInputCounter = 0;
         int boardState = 0;
+        int correctMoveNumber = 0;
 
+        // Initial message
+        cout << "Welcome to OOP Chess Puzzles, your one stop chess puzzle solving experience!\n";
+        cout << "Please enter the puzzle you want to work on, from a - e (lowercase only, or -1 to exit): ";
+
+        // Taking user input for which puzzle they want. Additionally, if the user does 5 invalid inputs in a row, the program
+        // will forcibly end, to prevent infinite looping
+        while (input == false && invalidInputCounter < 5) {
+            cin >> puzzle;
+            // if -1 is inputted, exit program
+            if (puzzle.compare("-1") == 0) {
+                return 0;
+                // if letter they entered is one of the ones specificed, can exit loop
+            } else if (puzzle.compare("a") == 0 || puzzle.compare("b") == 0 || puzzle.compare("c") == 0 || puzzle.compare("d") == 0 || puzzle.compare("e") == 0) {
+                input = true;
+            } else { // if letter they entered is not one of the ones specified, retake input
+                cout << "That's not a valid puzzle, please try again\n";
+                cout << "Please enter the puzzle you want to work on, from a - d (or -1 to exit): ";
+                input = false;
+                invalidInputCounter++;
+            }
+        }
+
+        // Make a game based on the puzzle we just selected
+        Game g1(puzzle, *(new Puzzle));
+        // Get required vectors
+        vector<Move> boardMoves = g1.getBoardMoves();
+        vector<string> boardFileNames = g1.getBoardStates();
+        // Start thread that displays board.
+        // This thread takes the adress of the class function, instantiated object, and any function parameters
         std::thread gameWindow(&Game::showBoard, &g1, &boardState);
 
+        // Since move list gets cut after every right move, we check to see if its empty or not
         while (g1.getCorrectMovelistLength() > 0) {
             char columnLetter = '0';
             int columnNum = 0;
@@ -36,10 +56,16 @@ namespace Chess {
             int newColumnNum = 0;
             int newRowNum = 0;
 
+            // Resetting input flags
+            input = false;
+            invalidInputCounter = 0;
+
+            // Taking user input on which piece they want to move
             while (input == false && invalidInputCounter < 5) {
                 std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                 cin >> columnLetter >> rowNum;
                 if (columnLetter == '-' && rowNum == 1) {
+                    // Always detach before exiting the main function
                     gameWindow.detach();
                     return true;
                 }
@@ -63,15 +89,24 @@ namespace Chess {
                 }
                 input = true;
             }
-            boardState++;
+            // since board images include the correct move, we check to see if the square they picked is the right square,
+            // and if it is, display the next image, which is the list of valid moves. This is an indirect hint as to whether
+            // or not their piece is correct
+            if (columnNum == g1.getCorrectMoves()[correctMoveNumber].x && rowNum == g1.getCorrectMoves()[correctMoveNumber].y) {
+                correctMoveNumber++;
+                boardState++;
+            }
+            // Resetting input flags
             input = false;
             invalidInputCounter = 0;
+
+            // Asking where they want to move the piece to
             while (input == false && invalidInputCounter < 5) {
                 std::cout << "Where would you like to move it to (or -1 to return to puzzle selection): ";
                 cin >> newColumnLetter >> newRowNum;
                 if (newColumnLetter == '-' && newRowNum == 1) {
                     gameWindow.detach();
-                    return true;
+                    return 0;
                 }
                 newColumnNum = newColumnLetter - 'a';
                 newRowNum--;
@@ -82,18 +117,22 @@ namespace Chess {
                     if (invalidInputCounter == 5) {
                         cout << "Too many invalid inputs, exiting program\n";
                         gameWindow.detach();
-                        return false;
+                        return 0;
                     }
                     continue;
                 }
                 input = true;
             }
+
+            // Assigning move based on the user input provided
             Move newMove = {columnNum,
                             rowNum,
                             newColumnNum,
                             newRowNum};
-
+            // play turn returns 1 if the move is actually played, as in it passes the three checks for the piece valid move,
+            // board valid move, and that the player does not put themself in check by doing that move
             while (g1.playTurn(newMove) != 1) {
+                // Resetting variables
                 columnLetter = '0';
                 columnNum = 0;
                 rowNum = 0;
@@ -105,6 +144,7 @@ namespace Chess {
                 input = false;
                 invalidInputCounter = 0;
 
+                // Retaking input
                 while (input == false && invalidInputCounter < 5) {
                     std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                     cin >> columnLetter >> rowNum;
@@ -133,6 +173,10 @@ namespace Chess {
                     input = true;
                 }
 
+                if (columnNum == g1.getCorrectMoves()[correctMoveNumber].x && rowNum == g1.getCorrectMoves()[correctMoveNumber].y) {
+                    correctMoveNumber++;
+                    boardState++;
+                }
                 input = false;
                 invalidInputCounter = 0;
 
@@ -158,36 +202,41 @@ namespace Chess {
                     }
                     input = true;
                 }
-
+                // Reassining move based on new inputs, and checking playTurn again
                 newMove = {columnNum,
                            rowNum,
                            newColumnNum,
                            newRowNum};
             }
-
+            // if while loop is finished, that means that the move is correct, so the board state is incremented to load the
+            // next image
             boardState++;
+
             std::cout << "That's the right move, good job!\n";
 
             input = false;
             invalidInputCounter = 0;
 
+            // this function actually moves the pieces and deletes the relevant element of the boardMoves vector
             if (boardMoves.size() > 0) {
                 g1.getCurrentBoard().movePiece(boardMoves[0]);
                 boardMoves.erase(boardMoves.begin());
+                // this is the end condition, where we define the puzzle as solved
                 if (g1.getCorrectMovelistLength() == 0) {
                     puzzleSolved = true;
-                    gameWindow.detach();
                 }
             }
 
             boardState++;
         }
+        // if puzzle was solved, display nice message
         if (puzzleSolved == true) {
             cout << "Well done, you solved the puzzle!\n";
         }
+        // Reset input flags
         input = false;
         invalidInputCounter = 0;
-
+        // ask if user wants to play again
         while (input == false && invalidInputCounter < 5) {
             cout << "Would you like to play again (y/n): ";
             char playAgain;
@@ -208,7 +257,9 @@ namespace Chess {
                 continue;
             }
         }
-        return false;
+        // if they dont, detach the thread and exit main
+        gameWindow.detach();
+        return 0;
     }
 }; // namespace runGame
 

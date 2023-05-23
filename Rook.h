@@ -1,11 +1,11 @@
-//Defining Rook
+// Defining Rook
 #ifndef ROOK_H
 #define ROOK_H
 
-//Inheriting from abstract piece
+// Inheriting from abstract piece
 #include "Piece.h"
 
-//Delcaring class, constructor, and valid move
+// Delcaring class, constructor, and valid move
 class Rook : public Piece {
 public:
     Rook(int x, int y, char colour);

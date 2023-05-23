@@ -1,13 +1,13 @@
-//Defining Queen
+// Defining Queen
 #ifndef QUEEN_H
 #define QUEEN_H
 
 #include <iostream>
 
-//Inheriting from abstract piece
+// Inheriting from abstract piece
 #include "Piece.h"
 
-//Declaring class, construtor, max move distance, and valid move
+// Declaring class, construtor, max move distance, and valid move
 class Queen : public Piece {
 protected:
     int maxMoveDistance;
