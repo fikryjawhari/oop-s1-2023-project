@@ -3,7 +3,7 @@
 #ifndef CHESS2_H
 #define CHESS2_H
 
-#include "Game.h"
+#include "/home/fikrya/oop-s1-2023-project/Game.h"
 
 namespace Chess2 {
     bool run() {
