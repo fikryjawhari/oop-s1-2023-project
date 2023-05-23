@@ -1,5 +1,5 @@
 //Function definitions
-#include "Bishop.h
+#include "Bishop.h"
 
 //Constructor
 Bishop::Bishop(int x, int y, char colour) : Piece(x, y, colour) {
