@@ -3,6 +3,8 @@
 
 #include "Board.h"
 #include "Puzzle.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <string>
 
 class Game {
@@ -22,6 +24,7 @@ public:
     int getCorrectMovelistLength();
     vector<Move> getBoardMoves();
     vector<string> getBoardStates();
+    void showBoard(int *index);
 };
 
 #endif // GAME_H
