@@ -2,6 +2,7 @@
 #define CHESS_H
 
 #include "Game.h"
+#include <thread>
 
 namespace Chess {
     bool run() {
@@ -17,13 +18,16 @@ namespace Chess {
 
         Game g1(puzzle[0], *(new Puzzle));
         vector<Move> boardMoves = g1.getBoardMoves();
+        vector<string> boardFileNames = g1.getBoardStates();
 
         bool input = false;
         bool puzzleSolved = false;
         int invalidInputCounter = 0;
+        int boardState = 0;
+
+        std::thread gameWindow(&Game::showBoard, &g1, &boardState);
 
         while (g1.getCorrectMovelistLength() > 0) {
-            g1.getCurrentBoard().printBoard(); // this just prints board, purely for testing
             char columnLetter = '0';
             int columnNum = 0;
             int rowNum = 0;
@@ -36,6 +40,7 @@ namespace Chess {
                 std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                 cin >> columnLetter >> rowNum;
                 if (columnLetter == '-' && rowNum == 1) {
+                    gameWindow.detach();
                     return true;
                 }
                 columnNum = columnLetter - 'a';
@@ -46,6 +51,7 @@ namespace Chess {
                     input = false;
                     if (invalidInputCounter == 5) {
                         cout << "Too many invalid inputs, exiting program\n";
+                        gameWindow.detach();
                         return false;
                     }
                     continue;
@@ -57,12 +63,14 @@ namespace Chess {
                 }
                 input = true;
             }
+            boardState++;
             input = false;
             invalidInputCounter = 0;
             while (input == false && invalidInputCounter < 5) {
                 std::cout << "Where would you like to move it to (or -1 to return to puzzle selection): ";
                 cin >> newColumnLetter >> newRowNum;
                 if (newColumnLetter == '-' && newRowNum == 1) {
+                    gameWindow.detach();
                     return true;
                 }
                 newColumnNum = newColumnLetter - 'a';
@@ -73,6 +81,7 @@ namespace Chess {
                     input = false;
                     if (invalidInputCounter == 5) {
                         cout << "Too many invalid inputs, exiting program\n";
+                        gameWindow.detach();
                         return false;
                     }
                     continue;
@@ -100,6 +109,7 @@ namespace Chess {
                     std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                     cin >> columnLetter >> rowNum;
                     if (columnLetter == '-' && rowNum == 1) {
+                        gameWindow.detach();
                         return true;
                     }
                     columnNum = columnLetter - 'a';
@@ -110,6 +120,7 @@ namespace Chess {
                         input = false;
                         if (invalidInputCounter == 5) {
                             cout << "Too many invalid inputs, exiting program\n";
+                            gameWindow.detach();
                             return false;
                         }
                         continue;
@@ -129,6 +140,7 @@ namespace Chess {
                     std::cout << "Where would you like to move it to (or -1 to return to puzzle selection): ";
                     cin >> newColumnLetter >> newRowNum;
                     if (newColumnLetter == '-' && newRowNum == 1) {
+                        gameWindow.detach();
                         return true;
                     }
                     newColumnNum = newColumnLetter - 'a';
@@ -139,6 +151,7 @@ namespace Chess {
                         input = false;
                         if (invalidInputCounter == 5) {
                             cout << "Too many invalid inputs, exiting program\n";
+                            gameWindow.detach();
                             return false;
                         }
                         continue;
@@ -152,6 +165,7 @@ namespace Chess {
                            newRowNum};
             }
 
+            boardState++;
             std::cout << "That's the right move, good job!\n";
 
             input = false;
@@ -162,14 +176,15 @@ namespace Chess {
                 boardMoves.erase(boardMoves.begin());
                 if (g1.getCorrectMovelistLength() == 0) {
                     puzzleSolved = true;
+                    gameWindow.detach();
                 }
             }
+
+            boardState++;
         }
         if (puzzleSolved == true) {
             cout << "Well done, you solved the puzzle!\n";
         }
-        g1.getCurrentBoard().printBoard();
-
         input = false;
         invalidInputCounter = 0;
 
@@ -194,7 +209,7 @@ namespace Chess {
             }
         }
         return false;
-    };
-} // namespace runGame
+    }
+}; // namespace runGame
 
 #endif // CHESS_H

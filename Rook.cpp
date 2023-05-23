@@ -1,9 +1,12 @@
+//Function definitions
 #include "Rook.h"
 
+//Constructor
 Rook::Rook(int x, int y, char colour) : Piece(x, y, colour) {
     pieceType = 'R';
 }
 
+//Rook's valid move
 // y increase -> no x increase OR x increase -> no y increase
 bool Rook::validMove(int newX, int newY) {
     if (newX > 0 && newX < 9 && newY > 0 && newY < 9) { // Within board confines

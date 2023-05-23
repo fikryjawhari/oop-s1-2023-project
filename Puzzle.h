@@ -1,5 +1,11 @@
+
 #ifndef PUZZLE_H
 #define PUZZLE_H
+
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
 #include "Bishop.h"
 #include "Board.h"
@@ -10,9 +16,6 @@
 #include "Queen.h"
 #include "Rook.h"
 #include "Square.h"
-#include <fstream>
-#include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -23,6 +26,7 @@ private:
     int currentSquare;
     vector<Move> correctMovelist;
     vector<Move> boardMoves;
+    vector<string> boardStates;
     int playerToMove; // 1 if white, -1 if black
 
 public:
@@ -30,6 +34,7 @@ public:
     Board readPuzzle(string fileName);
     vector<Move> getCorrectMovelist();
     vector<Move> getBoardMoves();
+    vector<string> getBoardStates();
     int getPlayerToMove();
 };
 

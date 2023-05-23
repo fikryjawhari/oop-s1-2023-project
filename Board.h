@@ -2,8 +2,6 @@
 #define BOARD_H
 
 #include "Square.h"
-#include <iostream>
-#include <vector>
 
 class Board {
 private:
@@ -15,7 +13,6 @@ public:
     bool takeValidation(Move move);
     bool validMove(Move move);
     void movePiece(Move move);
-    void printBoard();
     void copySquareArray(Square *squareArrayToCopy);
     void setSquareArray(Square *squareArray);
     // ~Board();

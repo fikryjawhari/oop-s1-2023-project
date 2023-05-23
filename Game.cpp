@@ -1,5 +1,5 @@
 #include "Game.h"
-#include <iostream>
+
 using namespace std;
 
 Game::Game() {
@@ -15,6 +15,7 @@ Game::Game(char file, Puzzle puzzle) {
     turn = puzzle.getPlayerToMove();
     correctMoveList = puzzle.getCorrectMovelist();
     boardMoves = puzzle.getBoardMoves();
+    boardStates = puzzle.getBoardStates();
 }
 
 bool Game::isInCheck(Move move) {
@@ -90,4 +91,37 @@ int Game::getCorrectMovelistLength() {
 
 vector<Move> Game::getBoardMoves() {
     return boardMoves;
+}
+
+vector<string> Game::getBoardStates() {
+    return boardStates;
+}
+
+void Game::showBoard(int *index) {
+    sf::RenderWindow window(sf::VideoMode(700, 700), "Puzzle");
+    sf::Texture texture;
+    sf::Sprite sprite;
+    if (!texture.loadFromFile(boardStates[*index])) {
+        std::cout << "Could not load image" << std::endl;
+        return;
+    } else {
+        sprite.setTexture(texture);
+    }
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+        window.clear();
+        window.draw(sprite);
+        window.display();
+        if (!texture.loadFromFile(boardStates[*index])) {
+            std::cout << "Could not load image" << std::endl;
+            return;
+        } else {
+            sprite.setTexture(texture);
+        }
+    }
 }

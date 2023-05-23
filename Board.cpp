@@ -1,5 +1,4 @@
 #include "Board.h"
-#include "Piece.h"
 
 using namespace std;
 
@@ -293,29 +292,6 @@ void Board::movePiece(Move move) {
     squareArray[(7 - move.newY) * 8 + move.newX].setPiecePtr(movingPiece);
     movingPiece->setPosition(move.newX + 1, move.newY + 1);
     squareArray[(7 - move.y) * 8 + move.x].setPiecePtr(nullptr);
-}
-
-void Board::printBoard() {
-    for (int i = 0; i < 64; i++) {
-        if (squareArray[i].getPiece() != nullptr) {
-            cout << squareArray[i].getXPosition() << ",";
-            cout << squareArray[i].getYPosition() << ",";
-            cout << squareArray[i].getPiece()->getPieceType();
-            if ((i + 1) % 8 == 0) {
-                cout << endl;
-            } else {
-                cout << "; ";
-            }
-        } else {
-            cout << squareArray[i].getXPosition() << ",";
-            cout << squareArray[i].getYPosition();
-            if ((i + 1) % 8 == 0) {
-                cout << endl;
-            } else {
-                cout << "; ";
-            }
-        }
-    }
 }
 
 void Board::copySquareArray(Square *squareArrayToCopy) {

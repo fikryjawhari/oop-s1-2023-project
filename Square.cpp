@@ -1,8 +1,11 @@
+//Functions definitions
 #include "Square.h"
 
+//Default constructor
 Square::Square() {
 }
 
+//Constructor, sets board
 Square::Square(int piece) {
     x = 0;
     y = 0;
@@ -48,6 +51,7 @@ Square::Square(int piece) {
     }
 }
 
+//Getters
 Piece *Square::getPiece() {
     return currentPiece;
 }
@@ -88,7 +92,7 @@ int Square::getPieceNumber() {
             pieceNumber += 6;
         }
     } else {
-        pieceNumber = 0;
+        pieceNumber = -1;
     }
     return pieceNumber;
 }
@@ -101,6 +105,7 @@ int Square::getYPosition() {
     return y;
 }
 
+//Setters
 void Square::setPiece(int newPiece) {
     switch (newPiece) {
     case 1:

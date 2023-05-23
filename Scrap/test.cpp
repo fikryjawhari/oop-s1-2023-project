@@ -1,6 +1,6 @@
-#include "Board.h"
-#include "Move.h"
-#include "Puzzle.h"
+#include "/home/fikrya/oop-s1-2023-project/Board.h"
+#include "/home/fikrya/oop-s1-2023-project/Move.h"
+#include "/home/fikrya/oop-s1-2023-project/Puzzle.h"
 #include <iostream>
 
 using namespace std;
