@@ -2,7 +2,7 @@
 #define CHESS_H
 
 #include "Game.h"
-#include <thread>
+#include "thread"
 
 namespace Chess {
     bool run() {
@@ -66,6 +66,7 @@ namespace Chess {
                 std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                 cin >> columnLetter >> rowNum;
                 if (columnLetter == '-' && rowNum == 1) {
+                    gameWindow.detach();
                     return true;
                 }
                 columnNum = columnLetter - 'a';
