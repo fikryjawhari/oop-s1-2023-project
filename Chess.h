@@ -17,11 +17,11 @@ namespace Chess {
 
         // Initial message
         cout << "Welcome to OOP Chess Puzzles, your one stop chess puzzle solving experience!\n";
-        cout << "Please enter the puzzle you want to work on, from a - e (lowercase only, or -1 to exit): ";
 
         // Taking user input for which puzzle they want. Additionally, if the user does 5 invalid inputs in a row, the program
         // will forcibly end, to prevent infinite looping
         while (input == false && invalidInputCounter < 5) {
+            cout << "Please enter the puzzle you want to work on, from a - e (lowercase only, or -1 to exit): ";
             cin >> puzzle;
             // if -1 is inputted, exit program
             if (puzzle.compare("-1") == 0) {
@@ -31,9 +31,11 @@ namespace Chess {
                 input = true;
             } else { // if letter they entered is not one of the ones specified, retake input
                 cout << "That's not a valid puzzle, please try again\n";
-                cout << "Please enter the puzzle you want to work on, from a - d (or -1 to exit): ";
                 input = false;
                 invalidInputCounter++;
+                if (invalidInputCounter == 5) {
+                    return false;
+                }
             }
         }
 
