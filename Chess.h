@@ -139,7 +139,6 @@ namespace Chess {
                             newRowNum};
             // play turn returns 1 if the move is actually played, as in it passes the three checks for the piece valid move,
             // board valid move, and that the player does not put themself in check by doing that move
-            g1.getCurrentBoard().printBoard();
             while (g1.playTurn(newMove) != 1) {
                 // Resetting variables
                 input = false;
@@ -248,7 +247,6 @@ namespace Chess {
             cout << "Would you like to play again (y/n): ";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
-            cout << "Cleared\n";
             cin >> playAgain;
             if (playAgain == 'y' || playAgain == 'Y') {
                 input = true;

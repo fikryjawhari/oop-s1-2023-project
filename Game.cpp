@@ -56,8 +56,6 @@ bool Game::isInCheck(Move move) {
                     int currentX = tempBoard.getSquareArray()[i].getXPosition();
                     int currentY = tempBoard.getSquareArray()[i].getYPosition();
                     Move tempMove(currentX - 1, currentY - 1, kingX - 1, kingY - 1);
-                    std::cout << tempMove.x << ", " << tempMove.y << " -> ";
-                    std::cout << tempMove.newX << ", " << tempMove.newY << "; " << std::endl;
                     if (tempBoard.validMove(tempMove) == true) {
                         return true;
                     } else {
@@ -72,8 +70,6 @@ bool Game::isInCheck(Move move) {
 
 // Main game loop function
 int Game::playTurn(Move move) {
-    std::cout << move.x << ", " << move.y << " -> ";
-    std::cout << move.newX << ", " << move.newY << "; " << std::endl;
     // Checks first if player move would put them in check
     if (isInCheck(move) == true) {
         std::cout << "In check, please try a different move\n";

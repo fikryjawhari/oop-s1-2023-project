@@ -91,7 +91,6 @@ Board Puzzle::readPuzzle(string fileName) {
         currentSquare++;
         currentPieceString = "";
     }
-    // initialBoard.printBoard();
     return initialBoard; // Returns the newly created puzzle board
 }
 

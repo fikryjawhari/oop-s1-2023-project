@@ -37,7 +37,6 @@ bool Board::validMove(Move move) {
     Move originalMove = move;
     // Gets piece pointer at given location
     Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
-    // printBoard();
     //  Checks if it is an empty square
     if (currentPiece != nullptr) {
         // Call piece valid move function, which uses a 1-8 coordinate instead of 0-7
@@ -292,7 +291,6 @@ bool Board::validMove(Move move) {
             return false;
         }
     } else { // If selected square was empty
-        std::cout << "Null ptr\n";
         return false;
     }
     return false; // in case nothing triggered a return true or a return false

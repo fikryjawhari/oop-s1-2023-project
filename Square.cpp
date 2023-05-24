@@ -5,7 +5,7 @@
 Square::Square() {
     x = 0;
     y = 0;
-    currentPiece = new Pawn{0, 0, 'w'};
+    currentPiece = nullptr;
 }
 
 // Constructor, sets board
