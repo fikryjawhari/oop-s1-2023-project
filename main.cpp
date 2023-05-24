@@ -7,6 +7,7 @@ int main() {
     bool gameRunning = true;
     while (gameRunning == true) {
         gameRunning = run();
+        std::cout << "Run has ended\n";
     }
     return 0;
 }

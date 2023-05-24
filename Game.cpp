@@ -9,12 +9,13 @@ Game::Game() {
 }
 
 // Call read puzzle file and get all necesarry information
-Game::Game(std::string fileName, Puzzle puzzle) {
-    currentBoard = puzzle.readPuzzle(fileName);
-    turn = puzzle.getPlayerToMove();
-    correctMoveList = puzzle.getCorrectMovelist();
-    boardMoves = puzzle.getBoardMoves();
-    boardStates = puzzle.getBoardStates();
+Game::Game(std::string fileName) {
+    Puzzle p1;
+    currentBoard = p1.readPuzzle(fileName);
+    turn = p1.getPlayerToMove();
+    correctMoveList = p1.getCorrectMovelist();
+    boardMoves = p1.getBoardMoves();
+    boardStates = p1.getBoardStates();
 }
 
 // Function to check if player move caused them to be in check
@@ -35,12 +36,12 @@ bool Game::isInCheck(Move move) {
             if (tempBoard.getSquareArray()[index].getPiece() != nullptr) {
                 if (tempBoard.getSquareArray()[index].getPieceName() == 'K') {
                     if (tempBoard.getSquareArray()[index].getPiece()->getColour() == 'w' && turn == 1) {
-                        kingX = tempBoard.getSquareArray()[index].getPiece()->getX();
-                        kingY = tempBoard.getSquareArray()[index].getPiece()->getY();
+                        kingX = tempBoard.getSquareArray()[index].getXPosition();
+                        kingY = tempBoard.getSquareArray()[index].getYPosition();
                         kingFound = true;
                     } else if (tempBoard.getSquareArray()[index].getPiece()->getColour() == 'b' && turn == -1) {
-                        kingX = tempBoard.getSquareArray()[index].getPiece()->getX();
-                        kingY = tempBoard.getSquareArray()[index].getPiece()->getY();
+                        kingX = tempBoard.getSquareArray()[index].getXPosition();
+                        kingY = tempBoard.getSquareArray()[index].getYPosition();
                         kingFound = true;
                     }
                 }
@@ -51,11 +52,12 @@ bool Game::isInCheck(Move move) {
         for (int i = 0; i < 64; i++) {
             if (tempBoard.getSquareArray()[i].getPiece() != nullptr) {
                 if (tempBoard.getSquareArray()[i].getPiece()->getPieceType() != 'K') {
-                    int currentX = tempBoard.getSquareArray()[i].getPiece()->getX();
-                    int currentY = tempBoard.getSquareArray()[i].getPiece()->getY();
+                    int currentX = tempBoard.getSquareArray()[i].getXPosition();
+                    int currentY = tempBoard.getSquareArray()[i].getYPosition();
                     Move tempMove(currentX - 1, currentY - 1, kingX - 1, kingY - 1);
                     if (tempBoard.validMove(tempMove) == true) {
                         return true;
+                    } else {
                     }
                 }
             }
@@ -67,6 +69,8 @@ bool Game::isInCheck(Move move) {
 
 // Main game loop function
 int Game::playTurn(Move move) {
+    std::cout << move.x << ", " << move.y << " -> ";
+    std::cout << move.newX << ", " << move.newY << "; " << std::endl;
     // Checks first if player move would put them in check
     if (isInCheck(move) == true) {
         std::cout << "In check, please try a different move\n";

@@ -23,7 +23,7 @@ private:
 public:
     // Constructors
     Game();
-    Game(std::string fileName, Puzzle puzzle);
+    Game(std::string fileName);
     // Various functions for core game loop
     bool isInCheck(Move move);
     int playTurn(Move move);

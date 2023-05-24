@@ -3,10 +3,10 @@ main:
 	clear
 	./output
 	clear
-main2:
-	g++ main2.cpp Bishop.cpp Board.cpp King.cpp Knight.cpp Pawn.cpp Queen.cpp Rook.cpp Square.cpp Piece.cpp Move.cpp Puzzle.cpp Game.cpp -o output -lsfml-graphics -lsfml-window -lsfml-system
+debugMain:
+	g++ main.cpp Bishop.cpp Board.cpp King.cpp Knight.cpp Pawn.cpp Queen.cpp Rook.cpp Square.cpp Piece.cpp Move.cpp Puzzle.cpp Game.cpp -o output -lsfml-graphics -lsfml-window -lsfml-system -lpthread  -fsanitize=address -g
 	clear
-	./output
+	valgrind --leak-check=yes output
 	clear
 runMain:
 	./output

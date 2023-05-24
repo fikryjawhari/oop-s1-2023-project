@@ -10,7 +10,7 @@ namespace Chess {
     bool run() {
 
         // Setting variables
-        string puzzle;
+        string puzzle = "";
         bool input = false;
         bool puzzleSolved = false;
         int invalidInputCounter = 0;
@@ -44,7 +44,7 @@ namespace Chess {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
         // Make a game based on the puzzle we just selected
-        Game g1(puzzle, *(new Puzzle));
+        Game g1(puzzle);
         // Get required vectors
         vector<Move> boardMoves = g1.getBoardMoves();
         vector<string> boardFileNames = g1.getBoardStates();
@@ -112,7 +112,7 @@ namespace Chess {
                 if (newColumnLetter == '-' && newRowNum == 1) {
                     cout << "Please close the window to continue\n";
                     gameWindow.join();
-                    return 0;
+                    return true;
                 }
                 newColumnNum = newColumnLetter - 'a';
                 newRowNum--;
@@ -139,6 +139,7 @@ namespace Chess {
                             newRowNum};
             // play turn returns 1 if the move is actually played, as in it passes the three checks for the piece valid move,
             // board valid move, and that the player does not put themself in check by doing that move
+            g1.getCurrentBoard().printBoard();
             while (g1.playTurn(newMove) != 1) {
                 // Resetting variables
                 input = false;
@@ -179,11 +180,13 @@ namespace Chess {
                     }
                     input = true;
                 }
-
+                // Resetting input flags
                 input = false;
                 invalidInputCounter = 0;
+
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
+                // Asking where they want to move the piece to
                 while (input == false && invalidInputCounter < 5) {
                     std::cout << "Where would you like to move it to (or -1 to return to puzzle selection): ";
                     cin >> newColumnLetter >> newRowNum;
@@ -204,7 +207,7 @@ namespace Chess {
                             cout << "Too many invalid inputs, exiting program\n";
                             cout << "Please close the window to continue\n";
                             gameWindow.join();
-                            return false;
+                            return 0;
                         }
                         continue;
                     }

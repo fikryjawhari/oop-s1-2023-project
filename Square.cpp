@@ -3,6 +3,9 @@
 
 // Default constructor
 Square::Square() {
+    x = 0;
+    y = 0;
+    currentPiece = new Pawn{0, 0, 'w'};
 }
 
 // Constructor, sets board
@@ -47,6 +50,7 @@ Square::Square(int piece) {
         this->currentPiece = new Queen{x, y, 'b'};
         break;
     default:
+        this->currentPiece = nullptr;
         break;
     }
 }
@@ -73,6 +77,7 @@ int Square::getYPosition() {
 
 // Setters
 void Square::setPiece(int newPiece) {
+    delete currentPiece;
     switch (newPiece) {
     case 1:
         this->currentPiece = new Pawn{x, y, 'w'};
@@ -111,11 +116,13 @@ void Square::setPiece(int newPiece) {
         this->currentPiece = new Queen{x, y, 'b'};
         break;
     default:
+        this->currentPiece = nullptr;
         break;
     }
 }
 
 void Square::setPiecePtr(Piece *piece) {
+    delete currentPiece;
     currentPiece = piece;
 }
 
@@ -125,4 +132,10 @@ void Square::setXPosition(int x) {
 
 void Square::setYPosition(int y) {
     this->y = y;
+}
+
+Square::~Square() {
+    if (currentPiece != nullptr) {
+        delete currentPiece;
+    }
 }

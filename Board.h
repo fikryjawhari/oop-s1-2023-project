@@ -21,6 +21,8 @@ public:
     // Copy functions for pointer issues
     void copySquareArray(Square *squareArrayToCopy);
     void setSquareArray(Square *squareArray);
+    // Destructor
+    ~Board();
 };
 
 #endif // BOARD_H

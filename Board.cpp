@@ -31,13 +31,14 @@ bool Board::takeValidation(Move move) {
     }
 }
 
-// Checks if move parameter is valid across the board;
+// Checks if proposed move is valid on the board;
 bool Board::validMove(Move move) {
     // Saves original move location
     Move originalMove = move;
     // Gets piece pointer at given location
     Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
-    // Checks if it is an empty square
+    // printBoard();
+    //  Checks if it is an empty square
     if (currentPiece != nullptr) {
         // Call piece valid move function, which uses a 1-8 coordinate instead of 0-7
         bool pieceValidMove = currentPiece->validMove(move.newX + 1, move.newY + 1);
@@ -291,6 +292,7 @@ bool Board::validMove(Move move) {
             return false;
         }
     } else { // If selected square was empty
+        std::cout << "Null ptr\n";
         return false;
     }
     return false; // in case nothing triggered a return true or a return false
@@ -343,6 +345,7 @@ void Board::copySquareArray(Square *squareArrayToCopy) {
                 squareArray[i].setPiecePtr(new Queen{pieceX, pieceY, pieceColour});
                 break;
             default:
+                squareArray[i].setPiecePtr(nullptr);
                 break;
             }
         }
@@ -354,6 +357,7 @@ void Board::setSquareArray(Square *squareArray) {
     this->squareArray = squareArray;
 }
 
+// Used for testing, no longer necessary
 void Board::printBoard() {
     for (int i = 0; i < 64; i++) {
         std::cout << squareArray[i].getXPosition() << ", ";
@@ -363,4 +367,11 @@ void Board::printBoard() {
             std::cout << std::endl;
         }
     }
+}
+
+Board::~Board() {
+    // for (int i = 0; i < 64; i++) {
+    //     delete squareArray[i].getPiece();
+    // }
+    // delete[] squareArray;
 }

@@ -11,6 +11,9 @@ Puzzle::Puzzle() {
 // when fileName is being taken, only these specific inputs are passed through,
 // any others lead to either a program exit or another input being taken
 Board Puzzle::readPuzzle(string fileName) {
+    currentPieceString = "";
+    currentPiece = 0;
+    currentSquare = 0; // resetting all variables
     switch (fileName[0]) {
     case 'a':
     case 'A':
@@ -86,7 +89,9 @@ Board Puzzle::readPuzzle(string fileName) {
         currentPiece = stoi(currentPieceString);
         initialBoard.getSquareArray()[currentSquare].setPiece(currentPiece);
         currentSquare++;
+        currentPieceString = "";
     }
+    // initialBoard.printBoard();
     return initialBoard; // Returns the newly created puzzle board
 }
 

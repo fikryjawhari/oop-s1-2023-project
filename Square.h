@@ -33,6 +33,8 @@ public:
     void setPiecePtr(Piece *piece);
     void setXPosition(int x);
     void setYPosition(int y);
+    // Destructor
+    ~Square();
 };
 
 #endif // SQUARE_H
