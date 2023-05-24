@@ -39,8 +39,8 @@ Board Puzzle::readPuzzle(string fileName) {
         break;
     case 'c':
     case 'C':
-        correctMovelist = {{3, 2, 1, 4}, {1, 4, 1, 3}};
-        boardMoves = {{3, 7, 3, 6}};
+        correctMovelist = {{4, 3, 4, 7}, {4, 0, 4, 7}};
+        boardMoves = {{3, 7, 4, 7}};
         boardStates = {{"Images/C-1.png"},
                        {"Images/C-2.png"},
                        {"Images/C-3.png"},
@@ -49,8 +49,8 @@ Board Puzzle::readPuzzle(string fileName) {
         break;
     case 'd':
     case 'D':
-        correctMovelist = {{4, 0, 4, 4}, {4, 4, 3, 5}};
-        boardMoves = {{5, 2, 6, 2}};
+        correctMovelist = {{1, 4, 1, 5}, {2, 1, 1, 1}, {1, 1, 0, 1}, {0, 1, 1, 1}};
+        boardMoves = {{0, 2, 0, 1}, {2, 3, 2, 2}, {2, 2, 2, 1}};
         boardStates = {{"Images/D-1.png"},
                        {"Images/D-2.png"},
                        {"Images/D-3.png"},
