@@ -122,7 +122,7 @@ void Game::showBoard(int *index) {
     // needed a pointer here as the board state is changing in a seperate thread
     sf::RenderWindow window(sf::VideoMode(700, 700), "Puzzle");
     //positions the window in a nice spot on screen
-    window.setPosition(sf::Vector2i(sf::VideoMode::getDesktopMode().width / 2 - (window.getSize().x / 2), sf::VideoMode::getDesktopMode().height / 2 - (window.getSize().y / 2)));
+    window.setPosition(sf::Vector2i(0,0));
     sf::Texture texture;
     sf::Sprite sprite;
     // If no image was loaded from file, exit method, which in turn exits the program
