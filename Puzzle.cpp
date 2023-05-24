@@ -78,6 +78,7 @@ Board Puzzle::readPuzzle(string fileName) {
     // Every puzzle has a hard coded move list, series of images, and which colour pieces the player has
     default:
         // Empty stuff if wrong board, won't happen in this program
+        std::cout << "Empty board\n";
         correctMovelist = {};
         boardMoves = {};
         boardStates = {};

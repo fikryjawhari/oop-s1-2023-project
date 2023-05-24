@@ -13,6 +13,7 @@ private:
 public:
     Board();                  // Constructor
     Square *getSquareArray(); // Getter
+    void printBoard();
     // Board wide move validation
     bool takeValidation(Move move);
     bool validMove(Move move);

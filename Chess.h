@@ -61,14 +61,11 @@ namespace Chess {
             // Resetting input flags
             input = false;
             invalidInputCounter = 0;
-
             // Taking user input on which piece they want to move
             while (input == false && invalidInputCounter < 5) {
                 std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                 cin >> columnLetter >> rowNum;
                 if (columnLetter == '-' && rowNum == 1) {
-                    // Always detach before exiting the main function
-                    gameWindow.detach();
                     return true;
                 }
                 columnNum = columnLetter - 'a';
@@ -116,6 +113,10 @@ namespace Chess {
                     std::cout << "Invalid input, please try again\n";
                     invalidInputCounter++;
                     input = false;
+                    if (columnNum == g1.getCorrectMoves()[correctMoveNumber - 1].x && rowNum == g1.getCorrectMoves()[correctMoveNumber - 1].y) {
+                        correctMoveNumber--;
+                        boardState--;
+                    }
                     if (invalidInputCounter == 5) {
                         cout << "Too many invalid inputs, exiting program\n";
                         gameWindow.detach();
@@ -125,7 +126,6 @@ namespace Chess {
                 }
                 input = true;
             }
-
             // Assigning move based on the user input provided
             Move newMove = {columnNum,
                             rowNum,

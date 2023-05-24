@@ -353,3 +353,14 @@ void Board::copySquareArray(Square *squareArrayToCopy) {
 void Board::setSquareArray(Square *squareArray) {
     this->squareArray = squareArray;
 }
+
+void Board::printBoard() {
+    for (int i = 0; i < 64; i++) {
+        std::cout << squareArray[i].getXPosition() << ", ";
+        std::cout << squareArray[i].getYPosition() << ", ";
+        std::cout << squareArray[i].getPieceName() << "; ";
+        if ((i + 1) % 8 == 0) {
+            std::cout << std::endl;
+        }
+    }
+}
