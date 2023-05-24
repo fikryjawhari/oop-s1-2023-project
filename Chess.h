@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "thread"
 
+using namespace std;
+
 namespace Chess {
     bool run() {
 
@@ -32,12 +34,15 @@ namespace Chess {
                 cout << "That's not a valid puzzle, please try again\n";
                 input = false;
                 invalidInputCounter++;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                 if (invalidInputCounter == 5) {
                     return false;
                 }
             }
         }
-
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
         // Make a game based on the puzzle we just selected
         Game g1(puzzle, *(new Puzzle));
         // Get required vectors
@@ -45,7 +50,7 @@ namespace Chess {
         vector<string> boardFileNames = g1.getBoardStates();
         // Start thread that displays board.
         // This thread takes the adress of the class function, instantiated object, and any function parameters
-        std::thread gameWindow(&Game::showBoard, &g1, &boardState);
+        thread gameWindow(&Game::showBoard, &g1, &boardState);
 
         // Since move list gets cut after every right move, we check to see if its empty or not
         while (g1.getCorrectMovelistLength() > 0) {
@@ -65,6 +70,7 @@ namespace Chess {
                 std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                 cin >> columnLetter >> rowNum;
                 if (columnLetter == '-' && rowNum == 1) {
+                    cout << "Please close the window to continue\n";
                     gameWindow.join();
                     return true;
                 }
@@ -74,8 +80,11 @@ namespace Chess {
                     std::cout << "Invalid input, please try again\n";
                     invalidInputCounter++;
                     input = false;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                     if (invalidInputCounter == 5) {
                         cout << "Too many invalid inputs, exiting program\n";
+                        cout << "Please close the window to continue\n";
                         gameWindow.join();
                         return false;
                     }
@@ -84,6 +93,8 @@ namespace Chess {
                     std::cout << "No piece on " << columnLetter << rowNum + 1;
                     std::cout << ", please try again\n";
                     input = false;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                     continue;
                 }
                 input = true;
@@ -92,11 +103,14 @@ namespace Chess {
             input = false;
             invalidInputCounter = 0;
 
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
             // Asking where they want to move the piece to
             while (input == false && invalidInputCounter < 5) {
                 std::cout << "Where would you like to move it to (or -1 to return to puzzle selection): ";
                 cin >> newColumnLetter >> newRowNum;
                 if (newColumnLetter == '-' && newRowNum == 1) {
+                    cout << "Please close the window to continue\n";
                     gameWindow.join();
                     return 0;
                 }
@@ -106,8 +120,11 @@ namespace Chess {
                     std::cout << "Invalid input, please try again\n";
                     invalidInputCounter++;
                     input = false;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                     if (invalidInputCounter == 5) {
                         cout << "Too many invalid inputs, exiting program\n";
+                        cout << "Please close the window to continue\n";
                         gameWindow.join();
                         return 0;
                     }
@@ -126,12 +143,14 @@ namespace Chess {
                 // Resetting variables
                 input = false;
                 invalidInputCounter = 0;
-
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                 // Retaking input
                 while (input == false && invalidInputCounter < 5) {
                     std::cout << "Where is the piece you would like to move (or -1 to return to puzzle selection): ";
                     cin >> columnLetter >> rowNum;
                     if (columnLetter == '-' && rowNum == 1) {
+                        cout << "Please close the window to continue\n";
                         gameWindow.join();
                         return true;
                     }
@@ -141,8 +160,11 @@ namespace Chess {
                         std::cout << "Invalid input, please try again\n";
                         invalidInputCounter++;
                         input = false;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                         if (invalidInputCounter == 5) {
                             cout << "Too many invalid inputs, exiting program\n";
+                            cout << "Please close the window to continue\n";
                             gameWindow.join();
                             return false;
                         }
@@ -151,6 +173,8 @@ namespace Chess {
                         std::cout << "No piece on " << columnLetter << rowNum + 1;
                         std::cout << ", please try again\n";
                         input = false;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                         continue;
                     }
                     input = true;
@@ -158,11 +182,13 @@ namespace Chess {
 
                 input = false;
                 invalidInputCounter = 0;
-
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                 while (input == false && invalidInputCounter < 5) {
                     std::cout << "Where would you like to move it to (or -1 to return to puzzle selection): ";
                     cin >> newColumnLetter >> newRowNum;
                     if (newColumnLetter == '-' && newRowNum == 1) {
+                        cout << "Please close the window to continue\n";
                         gameWindow.join();
                         return true;
                     }
@@ -172,8 +198,11 @@ namespace Chess {
                         std::cout << "Invalid input, please try again\n";
                         invalidInputCounter++;
                         input = false;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                         if (invalidInputCounter == 5) {
                             cout << "Too many invalid inputs, exiting program\n";
+                            cout << "Please close the window to continue\n";
                             gameWindow.join();
                             return false;
                         }
@@ -200,47 +229,43 @@ namespace Chess {
             if (boardMoves.size() > 0) {
                 g1.getCurrentBoard().movePiece(boardMoves[0]);
                 boardMoves.erase(boardMoves.begin());
-                // this is the end condition, where we define the puzzle as solved
-                if (g1.getCorrectMovelistLength() == 0) {
-                    puzzleSolved = true;
-                }
+                boardState++;
             }
-
-            boardState++;
         }
-        // if puzzle was solved, display nice message
-        if (puzzleSolved == true) {
-            cout << "Well done, you solved the puzzle!\n";
-        }
+        // if puzzle was solved, display nice message and wait for graphic window to close
+        cout << "Well done, you solved the puzzle!\n";
+        cout << "Please close the window to continue\n";
+        gameWindow.join();
         // Reset input flags
         input = false;
         invalidInputCounter = 0;
+        char playAgain = '0';
         // ask if user wants to play again
         while (input == false && invalidInputCounter < 5) {
             cout << "Would you like to play again (y/n): ";
-            char playAgain;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
+            cout << "Cleared\n";
             cin >> playAgain;
             if (playAgain == 'y' || playAgain == 'Y') {
                 input = true;
-                gameWindow.join();
                 return true;
             } else if (playAgain == 'n' || playAgain == 'N') {
                 input = true;
-                gameWindow.join();
                 return false;
             } else {
                 cout << "Invalid input, please try again\n";
                 invalidInputCounter++;
+                input = false;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer before taking new
                 if (invalidInputCounter == 5) {
                     cout << "Too many invalid inputs, exiting program\n";
-                    gameWindow.join();
                     return false;
                 }
                 continue;
             }
         }
-        // if nothing forces a return, join the thread and exit main
-        gameWindow.join();
         return 0;
     }
 }; // namespace runGame

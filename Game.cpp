@@ -121,8 +121,8 @@ vector<string> Game::getBoardStates() {
 void Game::showBoard(int *index) {
     // needed a pointer here as the board state is changing in a seperate thread
     sf::RenderWindow window(sf::VideoMode(700, 700), "Puzzle");
-    //positions the window in a nice spot on screen
-    window.setPosition(sf::Vector2i(0,0));
+    // positions the window in a nice spot on screen
+    window.setPosition(sf::Vector2i(0, 0));
     sf::Texture texture;
     sf::Sprite sprite;
     // If no image was loaded from file, exit method, which in turn exits the program

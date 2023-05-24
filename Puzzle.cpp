@@ -21,10 +21,7 @@ Board Puzzle::readPuzzle(string fileName) {
                        {"Images/A-3.png"},
                        {"Images/A-4.png"},
                        {"Images/A-5.png"},
-                       {"Images/A-6.png"},
-                       {"Images/A-7.png"},
-                       {"Images/A-8.png"},
-                       {"Images/A-9.png"}};
+                       {"Images/A-6.png"}};
         playerToMove = 1;
         break;
     case 'b':
@@ -34,9 +31,7 @@ Board Puzzle::readPuzzle(string fileName) {
         boardStates = {{"Images/B-1.png"},
                        {"Images/B-2.png"},
                        {"Images/B-3.png"},
-                       {"Images/B-4.png"},
-                       {"Images/B-5.png"},
-                       {"Images/B-6.png"}};
+                       {"Images/B-4.png"}};
         playerToMove = 1;
         break;
     case 'c':
@@ -46,9 +41,7 @@ Board Puzzle::readPuzzle(string fileName) {
         boardStates = {{"Images/C-1.png"},
                        {"Images/C-2.png"},
                        {"Images/C-3.png"},
-                       {"Images/C-4.png"},
-                       {"Images/C-5.png"},
-                       {"Images/C-6.png"}};
+                       {"Images/C-4.png"}};
         playerToMove = 1;
         break;
     case 'd':
@@ -60,7 +53,9 @@ Board Puzzle::readPuzzle(string fileName) {
                        {"Images/D-3.png"},
                        {"Images/D-4.png"},
                        {"Images/D-5.png"},
-                       {"Images/D-6.png"}};
+                       {"Images/D-6.png"},
+                       {"Images/D-7.png"},
+                       {"Images/D-8.png"}};
         playerToMove = -1;
         break;
     case 'e':
@@ -70,9 +65,7 @@ Board Puzzle::readPuzzle(string fileName) {
         boardStates = {{"Images/E-1.png"},
                        {"Images/E-2.png"},
                        {"Images/E-3.png"},
-                       {"Images/E-4.png"},
-                       {"Images/E-5.png"},
-                       {"Images/E-6.png"}};
+                       {"Images/E-4.png"}};
         playerToMove = 1;
         break;
     // Every puzzle has a hard coded move list, series of images, and which colour pieces the player has
