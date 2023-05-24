@@ -49,12 +49,15 @@ bool Game::isInCheck(Move move) {
             index++;
         }
         // Check if ANY pieces on the board are able to take the king after the proposed move is made
+        tempBoard.printBoard();
         for (int i = 0; i < 64; i++) {
             if (tempBoard.getSquareArray()[i].getPiece() != nullptr) {
                 if (tempBoard.getSquareArray()[i].getPiece()->getPieceType() != 'K') {
                     int currentX = tempBoard.getSquareArray()[i].getXPosition();
                     int currentY = tempBoard.getSquareArray()[i].getYPosition();
                     Move tempMove(currentX - 1, currentY - 1, kingX - 1, kingY - 1);
+                    std::cout << tempMove.x << ", " << tempMove.y << " -> ";
+                    std::cout << tempMove.newX << ", " << tempMove.newY << "; " << std::endl;
                     if (tempBoard.validMove(tempMove) == true) {
                         return true;
                     } else {

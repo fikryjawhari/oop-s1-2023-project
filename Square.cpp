@@ -122,7 +122,6 @@ void Square::setPiece(int newPiece) {
 }
 
 void Square::setPiecePtr(Piece *piece) {
-    delete currentPiece;
     currentPiece = piece;
 }
 
