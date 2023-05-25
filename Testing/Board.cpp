@@ -18,6 +18,7 @@ Square *Board::getSquareArray() {
 bool Board::takeValidation(Move move) {
     Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
     if (currentPiece != nullptr) {
+        std::cout << "not a nullptr" << std::endl;
         if (squareArray[(7 - move.newY) * 8 + move.newX].getPiece() != nullptr) { // if last square is not empty
             if (currentPiece->getColour() != squareArray[(7 - move.newY) * 8 + move.newX].getPiece()->getColour()) {
                 return true;
@@ -27,6 +28,7 @@ bool Board::takeValidation(Move move) {
         }
         return true;
     } else {
+        std::cout << "is a nullptr" << std::endl;
         return false;
     }
 }
@@ -39,6 +41,7 @@ bool Board::validMove(Move move) {
     Piece *currentPiece = squareArray[(7 - move.y) * 8 + move.x].getPiece();
     //  Checks if it is an empty square
     if (currentPiece != nullptr) {
+        std::cout << "not a nullptr in validMove" << std::endl;
         // Call piece valid move function, which uses a 1-8 coordinate instead of 0-7
         bool pieceValidMove = currentPiece->validMove(move.newX + 1, move.newY + 1);
         if (pieceValidMove == true) {
@@ -291,6 +294,7 @@ bool Board::validMove(Move move) {
             return false;
         }
     } else { // If selected square was empty
+        std::cout << "is a nullptr in validMove" << std::endl;
         return false;
     }
     return false; // in case nothing triggered a return true or a return false
