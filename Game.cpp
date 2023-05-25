@@ -49,7 +49,6 @@ bool Game::isInCheck(Move move) {
             index++;
         }
         // Check if ANY pieces on the board are able to take the king after the proposed move is made
-        tempBoard.printBoard();
         for (int i = 0; i < 64; i++) {
             if (tempBoard.getSquareArray()[i].getPiece() != nullptr) {
                 if (tempBoard.getSquareArray()[i].getPiece()->getPieceType() != 'K') {
