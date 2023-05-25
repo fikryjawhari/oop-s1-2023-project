@@ -84,6 +84,7 @@ Board Puzzle::readPuzzle(string fileName) {
     Board initialBoard;
     // Read puzzle data from file, which is just 64 rows of what piece is on each square
     ifstream currentPuzzle("Puzzles/" + fileName + ".txt");
+    std::cout << "Successfully read in puzzle file\n";
     while (getline(currentPuzzle, currentPieceString)) {
         // Pieces are stored as numbers in the text file, so need to convert the string number into an actual integer value
         currentPiece = stoi(currentPieceString);

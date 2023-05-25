@@ -26,3 +26,7 @@ bool Move::moveCompare(Move moveComparator) {
         return false;
     }
 }
+
+void Move::printMove() {
+    std::cout << x << ", " << y << ": " << newX << ", " << newY << "; ";
+}

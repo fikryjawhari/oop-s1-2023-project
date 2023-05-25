@@ -14,6 +14,7 @@ struct Move {
     Move(int x, int y, int newX, int newY);
     // Various game related functions
     bool moveCompare(Move moveComparator);
+    void printMove();
 };
 
 #endif // MOVE_H

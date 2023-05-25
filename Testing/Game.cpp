@@ -48,8 +48,9 @@ bool Game::isInCheck(Move move) {
             }
             index++;
         }
+        std::cout << "King found\n";
         // Check if ANY pieces on the board are able to take the king after the proposed move is made
-        tempBoard.printBoard();
+        tempBoard.printBoard(); // checking that the board is correct
         for (int i = 0; i < 64; i++) {
             if (tempBoard.getSquareArray()[i].getPiece() != nullptr) {
                 if (tempBoard.getSquareArray()[i].getPiece()->getPieceType() != 'K') {
@@ -75,6 +76,7 @@ int Game::playTurn(Move move) {
         std::cout << "In check, please try a different move\n";
         return -1; // in check
     } else {
+        std::cout << "Not in check\n";
         // If the move is valid
         if (currentBoard.validMove(move) == true) {
             // If its the correct move for this puzzle
